@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @ Author     ：libin
  * @ Date       ：Created in 19:09 2018/9/13
  * @ Description：${description}
- * @ Modified By：http工具类
+ * @ Modified By：Hessian序列化工具类
  * @Version: $version$
  */
 @Slf4j

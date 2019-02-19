@@ -3,58 +3,74 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>task-scheduler</artifactId>
-        <groupId>com.taikang</groupId>
+        <artifactId>crontabtask</artifactId>
+        <groupId>groupId</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>task-core</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>3.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <version>4.0.38</version>
-        </dependency>
+        <dependencies>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>3.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>4.0.38</version>
+            </dependency>
 
-        <!-- jetty -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>9.4.12.v20180830</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>9.4.12.v20180830</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-http</artifactId>
-            <version>9.4.12.v20180830</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-io</artifactId>
-            <version>9.4.12.v20180830</version>
-        </dependency>
+            <!-- jetty -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>9.4.12.v20180830</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-util</artifactId>
+                <version>9.4.12.v20180830</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-http</artifactId>
+                <version>9.4.12.v20180830</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-io</artifactId>
+                <version>9.4.12.v20180830</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-    </dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.eureka</groupId>
+                <artifactId>eureka-client</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.archaius</groupId>
+                <artifactId>archaius-core</artifactId>
+                <version>0.7.4</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+        </dependencies>
+
 
 </project>

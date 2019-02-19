@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ct.core.runner.eureka.TaskEurekaClientConfiguration

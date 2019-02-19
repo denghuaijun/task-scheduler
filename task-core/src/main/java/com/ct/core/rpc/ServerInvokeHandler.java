@@ -39,7 +39,6 @@ public class ServerInvokeHandler extends AbstractHandler {
     }
 
     public ReturnDTO invoke(HttpServletRequest request) {
-
         ReturnDTO returnDTO = ReturnDTO.SUCCESS();
         byte[] requestBytes = new byte[0];
         try {

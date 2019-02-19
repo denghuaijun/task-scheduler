@@ -29,7 +29,10 @@ public class RpcTransport implements Serializable {
 
         private String appName;
 
+        private Long logId;
+
         private String methodName;
+
 
     }
 
@@ -48,7 +51,8 @@ public class RpcTransport implements Serializable {
         private String appKey;
         @Getter
         private String appName;
-
+        @Getter
+        private Long logId;
 
         public RequestBuild appName(String appName) {
             this.appName = appName;
@@ -76,11 +80,15 @@ public class RpcTransport implements Serializable {
             this.interfaceClass = interfaceClass;
             return this;
         }
+        public RequestBuild logId(Long logId) {
+            this.logId = logId;
+            return this;
+        }
 
 
 
         public RpcRequestTransport build() {
-            return new RpcRequestTransport(clientAddress,createTime,interfaceClass,appKey,appName,null);
+            return new RpcRequestTransport(clientAddress,createTime,interfaceClass,appKey,appName,logId,null);
         }
     }
 }

@@ -24,5 +24,7 @@ public @interface RunnerClients {
 
     String[] value() default {};
 
+    String[] serviceurls() default {};
+
     String[] basePackages() default {};
 }

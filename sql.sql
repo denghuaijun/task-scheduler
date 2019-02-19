@@ -1,9 +1,8 @@
 /*
 SQLyog  v12.2.6 (64 bit)
-MySQL - 5.6.26 : Database - task_scheduler
+MySQL - 5.6.26 : Database - crontab_task
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,9 +12,9 @@ MySQL - 5.6.26 : Database - task_scheduler
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`task_scheduler` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`crontab_task` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `task_scheduler`;
+USE `crontab_task`;
 
 /*Table structure for table `task` */
 
@@ -32,7 +31,7 @@ CREATE TABLE `task` (
   `task_status` int(11) DEFAULT NULL COMMENT 'task 状态',
   `active` smallint(6) DEFAULT '1' COMMENT '1激活 0删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='调度任务列表';
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COMMENT='调度任务列表';
 
 /*Table structure for table `task_log` */
 
@@ -48,8 +47,10 @@ CREATE TABLE `task_log` (
   `message` varchar(1000) DEFAULT NULL COMMENT '消息',
   `code` varchar(50) DEFAULT NULL COMMENT 'code',
   `create_time` datetime DEFAULT NULL COMMENT '消息时间',
+  `task_starttime` datetime DEFAULT NULL COMMENT '任务开始时间',
+  `task_endtime` datetime DEFAULT NULL COMMENT '任务结束时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=760 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85239 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `task_qrtz_blob_triggers` */
 

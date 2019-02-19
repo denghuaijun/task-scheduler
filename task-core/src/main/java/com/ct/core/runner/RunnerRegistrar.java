@@ -4,7 +4,12 @@ import com.ct.core.annotation.Runner;
 import com.ct.core.annotation.RunnerClients;
 import com.ct.core.client.RunnerInvokerDef;
 import com.ct.core.rpc.JettyServer;
-import org.springframework.beans.BeansException;
+import com.ct.core.runner.eureka.EurekaClientConfigBean;
+import com.ct.core.runner.eureka.EurekaClientServiceBase;
+import com.ct.core.runner.eureka.EurekaInstanceConfigBean;
+import com.netflix.appinfo.ApplicationInfoManager;
+import com.netflix.discovery.EurekaClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -12,7 +17,6 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -38,7 +42,8 @@ import java.util.Set;
  * @ Modified By：
  * @Version: $version$
  */
-public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, ApplicationContextAware, EnvironmentAware, BeanClassLoaderAware, ResourceLoaderAware {
+@Slf4j
+public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, BeanClassLoaderAware, ResourceLoaderAware {
 
     private Environment environment;
 
@@ -46,10 +51,8 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Applicati
 
     private ResourceLoader resourceLoader;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    private ApplicationContext applicationContext;
 
-    }
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
@@ -57,6 +60,14 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Applicati
         Map<String, Object> attrs = importingClassMetadata.getAnnotationAttributes(RunnerClients.class.getName());
         String port = (String) attrs.get("port");
         String appkey = (String) attrs.get("appkey");
+        Set<String> serviceurls = new HashSet<>();
+        for (String url : (String[]) attrs.get("serviceurls")) {
+            if (StringUtils.hasText(url)) {
+                serviceurls.add(url);
+            }
+        }
+        String[] serviceurlsArray = serviceurls.toArray(new String[serviceurls.size()]);
+
         JettyServer.start(Integer.parseInt(port), null, null);
         //初始化rpc server 完成
         //初始化 runner
@@ -96,10 +107,29 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Applicati
                     rawBeanDefinition.getPropertyValues().addPropertyValue("appKey", appkey);
                     rawBeanDefinition.getPropertyValues().addPropertyValue("appName", appName);
                     rawBeanDefinition.getPropertyValues().addPropertyValue("ref", beanDefinition);
-                    registerBean(appkey, rawBeanDefinition, beanDefinitionRegistry);
+                    registerBean(basePackage+"."+candidateComponent.getBeanClassName(), rawBeanDefinition, beanDefinitionRegistry);
                 }
             }
         }
+
+
+        //初始化eureka-client
+        EurekaInstanceConfigBean myDataCenterInstanceConfig = EurekaInstanceConfigBean.builder()
+                .appname(appkey)
+                .nonSecurePort(Integer.valueOf(port).intValue())
+                .preferIpAddress(true)
+                .builder();
+
+
+        ApplicationInfoManager applicationInfoManager = EurekaClientServiceBase.initializeApplicationInfoManager(myDataCenterInstanceConfig);
+
+        EurekaClientConfigBean eurekaClientConfigBean = EurekaClientConfigBean.builder()
+                .serviceUrls(serviceurlsArray)
+                .build();
+        //启动eureka 服务
+        EurekaClient eurekaClient = EurekaClientServiceBase.initializeEurekaClient(applicationInfoManager,eurekaClientConfigBean);
+
+        EurekaClientServiceBase.instance(applicationInfoManager, eurekaClient, environment);
 
     }
 
@@ -143,8 +173,7 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Applicati
         return new ClassPathScanningCandidateComponentProvider(false, this.environment) {
 
             @Override
-            protected boolean isCandidateComponent(
-                    AnnotatedBeanDefinition beanDefinition) {
+            protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
                 if (beanDefinition.getMetadata().isIndependent()) {
                     if (beanDefinition.getMetadata().isInterface()
                             && beanDefinition.getMetadata()
@@ -159,9 +188,7 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Applicati
                         } catch (Exception ex) {
                             this.logger.error(
                                     "Could not load target class: "
-                                            + beanDefinition.getMetadata().getClassName(),
-                                    ex);
-
+                                            + beanDefinition.getMetadata().getClassName(),ex);
                         }
                     }
                     return true;
