@@ -65,4 +65,7 @@ public class TaskLogService {
         maps.put("data", list);                    // 分页列表
         return maps;
     }
+    public void updateTaskLog(TaskLog taskLog) {
+        taskLogMapper.updateByPrimaryKeySelective(taskLog);
+    }
 }
