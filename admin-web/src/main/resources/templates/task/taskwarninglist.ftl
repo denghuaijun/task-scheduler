@@ -71,7 +71,7 @@
 
 
 <!-- 新增.模态框 -->
-<div class="modal fade" id="addTaskrunnerModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal fade" id="addTaskwarningModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -81,7 +81,7 @@
                 <form class="form-horizontal form" role="form" >
                 <div class="form-group">
                         <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
-                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="OA账号" maxlength="32" ></div>
+                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
                     </div>
 
                     <hr>
@@ -98,7 +98,7 @@
 </div>
 
 <!-- 更新.模态框 -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal fade" id="updateTaskwarningModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,7 +108,7 @@
                 <form class="form-horizontal form" role="form" >
                     <div class="form-group">
                         <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
-                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="OA账号" maxlength="32" ></div>
+                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
                     </div>
 
                     <hr>

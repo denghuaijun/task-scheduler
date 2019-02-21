@@ -74,4 +74,11 @@ public class TaskWarningService {
         maps.put("data", taskWarningDTOList);                    // 分页列表
         return maps;
     }
+
+    public List<TaskWarningManager> selectTaskWarnningList() {
+        TaskWarningManagerExample example = new TaskWarningManagerExample();
+        example.setOrderByClause("create_time desc");
+        List<TaskWarningManager> taskWarningManagerList = taskWarningManagerMapper.selectByExample(example);
+        return taskWarningManagerList;
+    }
 }

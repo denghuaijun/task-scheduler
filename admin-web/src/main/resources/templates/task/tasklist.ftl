@@ -103,9 +103,9 @@
                     <label for="warningId" class="col-sm-2 control-label">关联告警账号<font color="red">*</font></label>
                     <div class="col-sm-4">
                         <select class="form-control" name="taskWarningId" >
-                            <option>-请选择-</option>
-                            <option>libin93</option>
-                            <option>itw_denghj</option>
+                            <#list taskwarningList as taskwarning>
+                                <option value="${taskwarning.id}"  >${taskwarning.taskWarningCount}</option>
+                            </#list>
                         </select>
                     </div>
                 </div>
@@ -148,18 +148,17 @@
                             <label for="taskRunId" class="col-sm-2 control-label">关联任务运行器<font color="red">*</font></label>
                             <div class="col-sm-4">
                                 <select class="form-control" name="taskRunnerId" >
-                            <#list taskrunnerList as taskrunner>
-                                <option value="${taskrunner.id}"  >${taskrunner.taskRunnerName}</option>
-                            </#list>
+                                <#list taskrunnerList as taskrunner>
+                                    <option value="${taskrunner.id}"  >${taskrunner.taskRunnerName}</option>
+                                </#list>
                                 </select>
                             </div>
                             <label for="warningId" class="col-sm-2 control-label">关联告警账号<font color="red">*</font></label>
                             <div class="col-sm-4">
                                 <select class="form-control" name="taskWarningId" >
-                                    <option>-请选择-</option>
-                                    <option>libin93</option>
-                                    <option>itw_denghj</option>
-                                </select>
+                                    <#list taskwarningList as taskwarning>
+                                        <option value="${taskwarning.id}"  >${taskwarning.taskWarningCount}</option>
+                                    </#list>
                             </div>
                         </div>
 

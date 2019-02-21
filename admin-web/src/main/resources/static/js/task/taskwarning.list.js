@@ -145,10 +145,10 @@ $(function () {
 
     // 点击新增任务按钮
     $(".add").click(function(){
-        $('#addTaskrunnerModal').modal({backdrop: false, keyboard: false}).modal('show');
+        $('#addTaskwarningModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
     //提交新增 保存
-    var addModalValidate = $("#addTaskrunnerModal .form").validate({
+    var addModalValidate = $("#addTaskwarningModal .form").validate({
         errorElement : 'span',
         errorClass : 'help-block',
         focusInvalid : true,
@@ -174,9 +174,9 @@ $(function () {
             element.parent('div').append(error);
         },
         submitHandler : function(form) {
-            $.post("/taskwarning/add",  $("#addTaskrunnerModal .form").serialize(), function(data, status) {
+            $.post("/taskwarning/add",  $("#addTaskwarningModal .form").serialize(), function(data, status) {
                 if (data.code == "200") {
-                    $('#addTaskrunnerModal').modal('hide');
+                    $('#addTaskwarningModal').modal('hide');
                     layer.open({
                         title: '系统提示',
                         content: '新增任务成功',

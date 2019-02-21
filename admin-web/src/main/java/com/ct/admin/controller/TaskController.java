@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ct.admin.core.schedule.SchedulerHandler;
 import com.ct.admin.model.TaskDTO;
 import com.ct.admin.service.TaskService;
+import com.ct.admin.service.TaskWarningService;
 import com.ct.admin.service.TaskrunnerService;
 import com.ct.core.model.ReturnDTO;
 import org.quartz.SchedulerException;
@@ -25,6 +26,9 @@ public class TaskController {
     @Resource
     private TaskrunnerService taskrunerService;
 
+    @Resource
+    private TaskWarningService taskWarningService;
+
     /**
      * 查询页面
      * @param model
@@ -35,6 +39,8 @@ public class TaskController {
     public String index(Model model, @RequestParam(required = false, defaultValue = "-1") int jobGroup) {
         //查询全部有效的taskrunner
         model.addAttribute("taskrunnerList", taskrunerService.findAllTaskrunner());
+        //查询全部有效的taskWarningCount
+        model.addAttribute("taskwarningList", taskWarningService.selectTaskWarnningList());
         return "task/tasklist";
     }
 
