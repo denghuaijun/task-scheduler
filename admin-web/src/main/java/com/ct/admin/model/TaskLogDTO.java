@@ -24,6 +24,8 @@ public class TaskLogDTO {
 
     private String code;
 
+    private String message;
+
     private Date createTime;//创建时间
 
 

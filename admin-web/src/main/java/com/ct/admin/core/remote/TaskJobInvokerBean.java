@@ -25,6 +25,9 @@ import java.util.Date;
 @Slf4j
 public class TaskJobInvokerBean extends QuartzJobBean {
 
+    private static final String OA_ID = "libin93";
+    private static final String PLATNAME = "分布式调度平台";
+
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         JobKey jobKey = jobExecutionContext.getTrigger().getJobKey();

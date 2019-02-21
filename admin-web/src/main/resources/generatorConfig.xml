@@ -33,7 +33,7 @@
                              targetProject="./src/main/java" type="ANNOTATEDMAPPER">
         </javaClientGenerator>
 
-        <table tableName="task" schema="crontab_task">
+        <!--<table tableName="task" schema="crontab_task">
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type=""/>
         </table>
         <table tableName="task_runner" schema="crontab_task">
@@ -41,8 +41,8 @@
         </table>
         <table tableName="task_runner_registry" schema="crontab_task">
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type=""/>
-        </table>
-        <table tableName="task_log" schema="crontab_task">
+        </table>-->
+        <table tableName="task_warning_manager" schema="crontab_task">
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type=""/>
         </table>
     </context>

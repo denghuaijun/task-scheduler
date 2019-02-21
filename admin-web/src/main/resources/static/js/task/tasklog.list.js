@@ -56,6 +56,13 @@ $(function () {
                 }
             },
             {
+                "data": 'message',
+                "visible" : true,
+                "render": function ( data, type, row ) {
+                    return data;
+                }
+            },
+            {
                 "data": 'createTime',
                 "visible" : true,
                 "render": function ( data, type, row ) {

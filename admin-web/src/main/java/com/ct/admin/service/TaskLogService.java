@@ -54,6 +54,7 @@ public class TaskLogService {
                 taskLogDTO.setRunnerAppName(n.getRunnerAppname());
                 taskLogDTO.setTaskId(n.getFkTaskId());
                 taskLogDTO.setTaskLogId(n.getId());
+                taskLogDTO.setMessage(n.getMessage());
                 taskLogDTO.setTaskRunnerId(n.getFkTaskRunnerId());
                 list.add(taskLogDTO);
             });

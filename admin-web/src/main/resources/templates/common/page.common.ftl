@@ -35,6 +35,7 @@
                 <li class="nav-click <#if pageName == "taskList">active</#if>" ><a href="/tasklist"><i class="fa fa-circle-o text-aqua"></i><span>任务管理</span></a></li>
                 <li class="nav-click <#if pageName == "taskrunnerList">active</#if>" ><a href="/taskrunnerlist"><i class="fa fa-circle-o text-green"></i><span>任务运行器管理</span></a></li>
                 <li class="nav-click <#if pageName == "tasklogList">active</#if>" ><a href="/taskloglist"><i class="fa fa-circle-o text-yellow"></i><span>任务日志查看</span></a></li>
+                <li class="nav-click <#if pageName == "taskwarningList">active</#if>" ><a href="/taskwarninglist"><i class="fa fa-circle-o text-red"></i><span>告警信息管理</span></a></li>
                 <li class="nav-click <#if pageName == "taskrunhelper">active</#if>" ><a href="/taskrunhelper"><i class="fa fa-circle-o text-gray"></i><span>帮助</span></a></li>
             </ul>
         </section>

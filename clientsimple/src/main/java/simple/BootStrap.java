@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableAutoConfiguration
-@RunnerClients(appkey = "test1", port = "8082",basePackages = "simple.impl")
+@RunnerClients(appkey = "test1", port = "8082",basePackages = "simple.impl",serviceurls = {"http://localhost:8761/eureka/"})
 @ComponentScan("simple.impl")
 public class BootStrap {
 
