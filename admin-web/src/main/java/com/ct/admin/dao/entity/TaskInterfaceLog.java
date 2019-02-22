@@ -7,10 +7,6 @@ public class TaskInterfaceLog {
 
     private String taskRequestPath;
 
-    private String taskRequestParam;
-
-    private String taskReponseParam;
-
     private Date taskRequestTime;
 
     private Date taskReponseTime;
@@ -43,22 +39,6 @@ public class TaskInterfaceLog {
 
     public void setTaskRequestPath(String taskRequestPath) {
         this.taskRequestPath = taskRequestPath;
-    }
-
-    public String getTaskRequestParam() {
-        return taskRequestParam;
-    }
-
-    public void setTaskRequestParam(String taskRequestParam) {
-        this.taskRequestParam = taskRequestParam;
-    }
-
-    public String getTaskReponseParam() {
-        return taskReponseParam;
-    }
-
-    public void setTaskReponseParam(String taskReponseParam) {
-        this.taskReponseParam = taskReponseParam;
     }
 
     public Date getTaskRequestTime() {

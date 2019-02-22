@@ -2,7 +2,7 @@ package com.ct.admin.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.ct.admin.dao.entity.TaskInterfaceLog;
+import com.ct.admin.dao.entity.TaskInterfaceLogWithBLOBs;
 import com.ct.admin.dao.mapper.TaskInterfaceLogMapper;
 import com.ct.admin.utils.HttpTools;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class SecurityInteceptor implements HandlerInterceptor {
            return true;
        }
         //创建任务接口日志实体对象
-        TaskInterfaceLog logEntity = new TaskInterfaceLog();
+        TaskInterfaceLogWithBLOBs logEntity = new TaskInterfaceLogWithBLOBs();
         //初始化set请求数据
         logEntity.setTaskClientIp(HttpTools.getIpAddress(request));
         logEntity.setTaskRequestMethod(request.getMethod());
@@ -69,11 +69,13 @@ public class SecurityInteceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
         int status = response.getStatus();//返回状态码
-        TaskInterfaceLog interfaceLog = (TaskInterfaceLog) request.getAttribute(LOGGER_ENTITY);
+        TaskInterfaceLogWithBLOBs interfaceLog = (TaskInterfaceLogWithBLOBs) request.getAttribute(LOGGER_ENTITY);
         if (interfaceLog !=null){
+            String returnValue = String.valueOf(request.getAttribute("response"));
             interfaceLog.setTaskReponseTime(new Date(System.currentTimeMillis()));
             interfaceLog.setTaskReponseCode(status+"");
             interfaceLog.setCreateTime(new Date());
+            interfaceLog.setTaskReponseParam(returnValue);
             taskInterfaceLogMapper.insertSelective(interfaceLog);
         }
         log.info("SecurityInteceptor 请求requestURL:{},status:{}",request.getRequestURI(),status);

@@ -1,9 +1,9 @@
 package com.ct.admin.dao.mapper;
 
-import com.ct.admin.dao.entity.TaskInterfaceLog;
 import com.ct.admin.dao.entity.TaskInterfaceLogExample.Criteria;
 import com.ct.admin.dao.entity.TaskInterfaceLogExample.Criterion;
 import com.ct.admin.dao.entity.TaskInterfaceLogExample;
+import com.ct.admin.dao.entity.TaskInterfaceLogWithBLOBs;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
@@ -24,20 +24,12 @@ public class TaskInterfaceLogSqlProvider {
         return sql.toString();
     }
 
-    public String insertSelective(TaskInterfaceLog record) {
+    public String insertSelective(TaskInterfaceLogWithBLOBs record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("task_interface_log");
         
         if (record.getTaskRequestPath() != null) {
             sql.VALUES("task_request_path", "#{taskRequestPath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskRequestParam() != null) {
-            sql.VALUES("task_request_param", "#{taskRequestParam,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskReponseParam() != null) {
-            sql.VALUES("task_reponse_param", "#{taskReponseParam,jdbcType=VARCHAR}");
         }
         
         if (record.getTaskRequestTime() != null) {
@@ -76,6 +68,43 @@ public class TaskInterfaceLogSqlProvider {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getTaskRequestParam() != null) {
+            sql.VALUES("task_request_param", "#{taskRequestParam,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getTaskReponseParam() != null) {
+            sql.VALUES("task_reponse_param", "#{taskReponseParam,jdbcType=LONGVARCHAR}");
+        }
+        
+        return sql.toString();
+    }
+
+    public String selectByExampleWithBLOBs(TaskInterfaceLogExample example) {
+        SQL sql = new SQL();
+        if (example != null && example.isDistinct()) {
+            sql.SELECT_DISTINCT("id");
+        } else {
+            sql.SELECT("id");
+        }
+        sql.SELECT("task_request_path");
+        sql.SELECT("task_request_time");
+        sql.SELECT("task_reponse_time");
+        sql.SELECT("task_session_id");
+        sql.SELECT("task_client_ip");
+        sql.SELECT("task_request_method");
+        sql.SELECT("task_request_type");
+        sql.SELECT("task_reponse_code");
+        sql.SELECT("create_time");
+        sql.SELECT("remark");
+        sql.SELECT("task_request_param");
+        sql.SELECT("task_reponse_param");
+        sql.FROM("task_interface_log");
+        applyWhere(sql, example, false);
+        
+        if (example != null && example.getOrderByClause() != null) {
+            sql.ORDER_BY(example.getOrderByClause());
+        }
+        
         return sql.toString();
     }
 
@@ -87,8 +116,6 @@ public class TaskInterfaceLogSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("task_request_path");
-        sql.SELECT("task_request_param");
-        sql.SELECT("task_reponse_param");
         sql.SELECT("task_request_time");
         sql.SELECT("task_reponse_time");
         sql.SELECT("task_session_id");
@@ -109,7 +136,7 @@ public class TaskInterfaceLogSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        TaskInterfaceLog record = (TaskInterfaceLog) parameter.get("record");
+        TaskInterfaceLogWithBLOBs record = (TaskInterfaceLogWithBLOBs) parameter.get("record");
         TaskInterfaceLogExample example = (TaskInterfaceLogExample) parameter.get("example");
         
         SQL sql = new SQL();
@@ -121,14 +148,6 @@ public class TaskInterfaceLogSqlProvider {
         
         if (record.getTaskRequestPath() != null) {
             sql.SET("task_request_path = #{record.taskRequestPath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskRequestParam() != null) {
-            sql.SET("task_request_param = #{record.taskRequestParam,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskReponseParam() != null) {
-            sql.SET("task_reponse_param = #{record.taskReponseParam,jdbcType=VARCHAR}");
         }
         
         if (record.getTaskRequestTime() != null) {
@@ -167,6 +186,37 @@ public class TaskInterfaceLogSqlProvider {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getTaskRequestParam() != null) {
+            sql.SET("task_request_param = #{record.taskRequestParam,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getTaskReponseParam() != null) {
+            sql.SET("task_reponse_param = #{record.taskReponseParam,jdbcType=LONGVARCHAR}");
+        }
+        
+        applyWhere(sql, example, true);
+        return sql.toString();
+    }
+
+    public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
+        SQL sql = new SQL();
+        sql.UPDATE("task_interface_log");
+        
+        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("task_request_path = #{record.taskRequestPath,jdbcType=VARCHAR}");
+        sql.SET("task_request_time = #{record.taskRequestTime,jdbcType=TIMESTAMP}");
+        sql.SET("task_reponse_time = #{record.taskReponseTime,jdbcType=TIMESTAMP}");
+        sql.SET("task_session_id = #{record.taskSessionId,jdbcType=VARCHAR}");
+        sql.SET("task_client_ip = #{record.taskClientIp,jdbcType=VARCHAR}");
+        sql.SET("task_request_method = #{record.taskRequestMethod,jdbcType=VARCHAR}");
+        sql.SET("task_request_type = #{record.taskRequestType,jdbcType=VARCHAR}");
+        sql.SET("task_reponse_code = #{record.taskReponseCode,jdbcType=VARCHAR}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("task_request_param = #{record.taskRequestParam,jdbcType=LONGVARCHAR}");
+        sql.SET("task_reponse_param = #{record.taskReponseParam,jdbcType=LONGVARCHAR}");
+        
+        TaskInterfaceLogExample example = (TaskInterfaceLogExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -177,8 +227,6 @@ public class TaskInterfaceLogSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("task_request_path = #{record.taskRequestPath,jdbcType=VARCHAR}");
-        sql.SET("task_request_param = #{record.taskRequestParam,jdbcType=VARCHAR}");
-        sql.SET("task_reponse_param = #{record.taskReponseParam,jdbcType=VARCHAR}");
         sql.SET("task_request_time = #{record.taskRequestTime,jdbcType=TIMESTAMP}");
         sql.SET("task_reponse_time = #{record.taskReponseTime,jdbcType=TIMESTAMP}");
         sql.SET("task_session_id = #{record.taskSessionId,jdbcType=VARCHAR}");
@@ -194,20 +242,12 @@ public class TaskInterfaceLogSqlProvider {
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(TaskInterfaceLog record) {
+    public String updateByPrimaryKeySelective(TaskInterfaceLogWithBLOBs record) {
         SQL sql = new SQL();
         sql.UPDATE("task_interface_log");
         
         if (record.getTaskRequestPath() != null) {
             sql.SET("task_request_path = #{taskRequestPath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskRequestParam() != null) {
-            sql.SET("task_request_param = #{taskRequestParam,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskReponseParam() != null) {
-            sql.SET("task_reponse_param = #{taskReponseParam,jdbcType=VARCHAR}");
         }
         
         if (record.getTaskRequestTime() != null) {
@@ -244,6 +284,14 @@ public class TaskInterfaceLogSqlProvider {
         
         if (record.getRemark() != null) {
             sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTaskRequestParam() != null) {
+            sql.SET("task_request_param = #{taskRequestParam,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getTaskReponseParam() != null) {
+            sql.SET("task_reponse_param = #{taskReponseParam,jdbcType=LONGVARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
