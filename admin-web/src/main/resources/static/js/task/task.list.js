@@ -123,6 +123,7 @@ $(function () {
         $('#updateModal .form select[name=taskRunnerId] option[value='+ row.taskRunnerId +']').prop('selected', true);
         $("#updateModal .form input[name='taskName']").val( row.taskName );
         $("#updateModal .form input[name='taskCron']").val( row.taskCron );
+        $('#updateModal .form select[name=taskWarningId] option[value='+ row.taskWarningId +']').prop('selected', true);
         // show
         $('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
@@ -143,6 +144,9 @@ $(function () {
             },
             taskRunnerId : {
                 required : true
+            },
+            taskWarningId :{
+                required : true
             }
         },
         messages : {
@@ -154,6 +158,9 @@ $(function () {
             },
             taskRunnerId : {
                 required :"taskRunnerId不能为空"
+            },
+            taskWarningId :{
+                required : "taskWarningId不能为空"
             }
         },
         highlight : function(element) {
@@ -277,6 +284,9 @@ $(function () {
             },
             taskRunnerId : {
                 required : true
+            },
+            taskWarningId :{
+                required : true
             }
         },
         messages : {
@@ -288,6 +298,9 @@ $(function () {
             },
             taskRunnerId : {
                 required :"taskRunnerId不能为空"
+            },
+            taskWarningId :{
+                required : "taskWarningId不能为空"
             }
         },
         highlight : function(element) {

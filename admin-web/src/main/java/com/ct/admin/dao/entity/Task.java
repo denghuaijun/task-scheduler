@@ -9,6 +9,8 @@ public class Task {
 
     private Long fkTaskrunnerId;
 
+    private Long fkTaskwarningId;
+
     private String taskCron;
 
     private Long creatorId;
@@ -43,6 +45,14 @@ public class Task {
 
     public void setFkTaskrunnerId(Long fkTaskrunnerId) {
         this.fkTaskrunnerId = fkTaskrunnerId;
+    }
+
+    public Long getFkTaskwarningId() {
+        return fkTaskwarningId;
+    }
+
+    public void setFkTaskwarningId(Long fkTaskwarningId) {
+        this.fkTaskwarningId = fkTaskwarningId;
     }
 
     public String getTaskCron() {

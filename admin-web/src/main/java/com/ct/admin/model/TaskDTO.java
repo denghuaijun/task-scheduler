@@ -13,6 +13,8 @@ public class TaskDTO {
 
     private Long taskRunnerId;
 
+    private Long taskWarningId;
+
     private String taskCron;
 
     private Integer taskStatus;

@@ -107,6 +107,7 @@ public class TaskService {
         task.setTaskName(taskDTO.getTaskName());
         task.setTaskCron(taskDTO.getTaskCron());
         task.setFkTaskrunnerId(taskDTO.getTaskRunnerId());
+        task.setFkTaskwarningId(taskDTO.getTaskWarningId());
         task.setStatus(1);
         task.setCreateAt(new Date());
         int i = taskMapper.insertSelective(task);
@@ -146,6 +147,7 @@ public class TaskService {
         //修改更新
         Task task = new Task();
         task.setId(taskId);
+        task.setFkTaskwarningId(taskDTO.getTaskWarningId());
         task.setTaskName(taskDTO.getTaskName());
         task.setTaskCron(taskDTO.getTaskCron());
         task.setFkTaskrunnerId(taskDTO.getTaskRunnerId());

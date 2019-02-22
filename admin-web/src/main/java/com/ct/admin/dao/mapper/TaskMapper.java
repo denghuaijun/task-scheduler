@@ -32,13 +32,15 @@ public interface TaskMapper {
 
     @Insert({
         "insert into task (task_name, fk_taskrunner_id, ",
-        "task_cron, creator_id, ",
-        "create_at, status, ",
-        "task_status, active)",
+        "fk_taskwarning_id, task_cron, ",
+        "creator_id, create_at, ",
+        "status, task_status, ",
+        "active)",
         "values (#{taskName,jdbcType=VARCHAR}, #{fkTaskrunnerId,jdbcType=BIGINT}, ",
-        "#{taskCron,jdbcType=VARCHAR}, #{creatorId,jdbcType=BIGINT}, ",
-        "#{createAt,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, ",
-        "#{taskStatus,jdbcType=INTEGER}, #{active,jdbcType=SMALLINT})"
+        "#{fkTaskwarningId,jdbcType=BIGINT}, #{taskCron,jdbcType=VARCHAR}, ",
+        "#{creatorId,jdbcType=BIGINT}, #{createAt,jdbcType=TIMESTAMP}, ",
+        "#{status,jdbcType=INTEGER}, #{taskStatus,jdbcType=INTEGER}, ",
+        "#{active,jdbcType=SMALLINT})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Task record);
@@ -52,6 +54,7 @@ public interface TaskMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_name", property="taskName", jdbcType=JdbcType.VARCHAR),
         @Result(column="fk_taskrunner_id", property="fkTaskrunnerId", jdbcType=JdbcType.BIGINT),
+        @Result(column="fk_taskwarning_id", property="fkTaskwarningId", jdbcType=JdbcType.BIGINT),
         @Result(column="task_cron", property="taskCron", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator_id", property="creatorId", jdbcType=JdbcType.BIGINT),
         @Result(column="create_at", property="createAt", jdbcType=JdbcType.TIMESTAMP),
@@ -63,8 +66,8 @@ public interface TaskMapper {
 
     @Select({
         "select",
-        "id, task_name, fk_taskrunner_id, task_cron, creator_id, create_at, status, task_status, ",
-        "active",
+        "id, task_name, fk_taskrunner_id, fk_taskwarning_id, task_cron, creator_id, create_at, ",
+        "status, task_status, active",
         "from task",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -72,6 +75,7 @@ public interface TaskMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_name", property="taskName", jdbcType=JdbcType.VARCHAR),
         @Result(column="fk_taskrunner_id", property="fkTaskrunnerId", jdbcType=JdbcType.BIGINT),
+        @Result(column="fk_taskwarning_id", property="fkTaskwarningId", jdbcType=JdbcType.BIGINT),
         @Result(column="task_cron", property="taskCron", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator_id", property="creatorId", jdbcType=JdbcType.BIGINT),
         @Result(column="create_at", property="createAt", jdbcType=JdbcType.TIMESTAMP),
@@ -94,6 +98,7 @@ public interface TaskMapper {
         "update task",
         "set task_name = #{taskName,jdbcType=VARCHAR},",
           "fk_taskrunner_id = #{fkTaskrunnerId,jdbcType=BIGINT},",
+          "fk_taskwarning_id = #{fkTaskwarningId,jdbcType=BIGINT},",
           "task_cron = #{taskCron,jdbcType=VARCHAR},",
           "creator_id = #{creatorId,jdbcType=BIGINT},",
           "create_at = #{createAt,jdbcType=TIMESTAMP},",

@@ -36,6 +36,10 @@ public class TaskSqlProvider {
             sql.VALUES("fk_taskrunner_id", "#{fkTaskrunnerId,jdbcType=BIGINT}");
         }
         
+        if (record.getFkTaskwarningId() != null) {
+            sql.VALUES("fk_taskwarning_id", "#{fkTaskwarningId,jdbcType=BIGINT}");
+        }
+        
         if (record.getTaskCron() != null) {
             sql.VALUES("task_cron", "#{taskCron,jdbcType=VARCHAR}");
         }
@@ -72,6 +76,7 @@ public class TaskSqlProvider {
         }
         sql.SELECT("task_name");
         sql.SELECT("fk_taskrunner_id");
+        sql.SELECT("fk_taskwarning_id");
         sql.SELECT("task_cron");
         sql.SELECT("creator_id");
         sql.SELECT("create_at");
@@ -105,6 +110,10 @@ public class TaskSqlProvider {
         
         if (record.getFkTaskrunnerId() != null) {
             sql.SET("fk_taskrunner_id = #{record.fkTaskrunnerId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getFkTaskwarningId() != null) {
+            sql.SET("fk_taskwarning_id = #{record.fkTaskwarningId,jdbcType=BIGINT}");
         }
         
         if (record.getTaskCron() != null) {
@@ -142,6 +151,7 @@ public class TaskSqlProvider {
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("task_name = #{record.taskName,jdbcType=VARCHAR}");
         sql.SET("fk_taskrunner_id = #{record.fkTaskrunnerId,jdbcType=BIGINT}");
+        sql.SET("fk_taskwarning_id = #{record.fkTaskwarningId,jdbcType=BIGINT}");
         sql.SET("task_cron = #{record.taskCron,jdbcType=VARCHAR}");
         sql.SET("creator_id = #{record.creatorId,jdbcType=BIGINT}");
         sql.SET("create_at = #{record.createAt,jdbcType=TIMESTAMP}");
@@ -164,6 +174,10 @@ public class TaskSqlProvider {
         
         if (record.getFkTaskrunnerId() != null) {
             sql.SET("fk_taskrunner_id = #{fkTaskrunnerId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getFkTaskwarningId() != null) {
+            sql.SET("fk_taskwarning_id = #{fkTaskwarningId,jdbcType=BIGINT}");
         }
         
         if (record.getTaskCron() != null) {

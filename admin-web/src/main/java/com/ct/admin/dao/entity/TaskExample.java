@@ -295,6 +295,66 @@ public class TaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andFkTaskwarningIdIsNull() {
+            addCriterion("fk_taskwarning_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdIsNotNull() {
+            addCriterion("fk_taskwarning_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdEqualTo(Long value) {
+            addCriterion("fk_taskwarning_id =", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdNotEqualTo(Long value) {
+            addCriterion("fk_taskwarning_id <>", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdGreaterThan(Long value) {
+            addCriterion("fk_taskwarning_id >", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("fk_taskwarning_id >=", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdLessThan(Long value) {
+            addCriterion("fk_taskwarning_id <", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdLessThanOrEqualTo(Long value) {
+            addCriterion("fk_taskwarning_id <=", value, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdIn(List<Long> values) {
+            addCriterion("fk_taskwarning_id in", values, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdNotIn(List<Long> values) {
+            addCriterion("fk_taskwarning_id not in", values, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdBetween(Long value1, Long value2) {
+            addCriterion("fk_taskwarning_id between", value1, value2, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFkTaskwarningIdNotBetween(Long value1, Long value2) {
+            addCriterion("fk_taskwarning_id not between", value1, value2, "fkTaskwarningId");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskCronIsNull() {
             addCriterion("task_cron is null");
             return (Criteria) this;
