@@ -41,7 +41,7 @@ public class TaskWarningService {
         }catch (Exception e){
             log.error(e.getMessage(), e);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return new ReturnDTO(ReturnDTO.RETURN_FAIL_CODE, "添加任务失败:" + e.getMessage());
+            return new ReturnDTO(ReturnDTO.RETURN_FAIL_CODE, "添加告警用户失败:" + e.getMessage());
         }
         return ReturnDTO.FAIL();
     }

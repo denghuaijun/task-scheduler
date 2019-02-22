@@ -179,7 +179,7 @@ $(function () {
                     $('#addTaskwarningModal').modal('hide');
                     layer.open({
                         title: '系统提示',
-                        content: '新增任务成功',
+                        content: '新增告警组成功',
                         icon: '1',
                         end: function(layer, index){
                             taskTable.fnDraw();
@@ -189,7 +189,7 @@ $(function () {
                 } else {
                     layer.open({
                         title: '系统提示',
-                        content: (data.msg || "新增任务失败"),
+                        content: (data.msg || "新增告警组失败"),
                         icon: '2'
                     });
                 }
