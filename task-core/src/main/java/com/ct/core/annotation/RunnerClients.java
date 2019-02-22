@@ -27,4 +27,6 @@ public @interface RunnerClients {
     String[] serviceurls() default {};
 
     String[] basePackages() default {};
+
+    boolean discoveryEnable() default true;
 }

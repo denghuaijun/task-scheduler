@@ -60,13 +60,24 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
         Map<String, Object> attrs = importingClassMetadata.getAnnotationAttributes(RunnerClients.class.getName());
         String port = (String) attrs.get("port");
         String appkey = (String) attrs.get("appkey");
-        Set<String> serviceurls = new HashSet<>();
-        for (String url : (String[]) attrs.get("serviceurls")) {
-            if (StringUtils.hasText(url)) {
-                serviceurls.add(url);
+        boolean discoveryEnable = (boolean) attrs.get("discoveryEnable");
+        String[] discoveryServiceurls = (String[]) attrs.get("serviceurls");
+
+
+        String[] serviceurlsArray = null;
+
+        if (discoveryServiceurls != null && discoveryServiceurls.length > 0) {
+            Set<String> serviceurls = new HashSet<>();
+            for (String url : (String[]) attrs.get("serviceurls")) {
+                if (StringUtils.hasText(url)) {
+                    serviceurls.add(url);
+                }
+            }
+            if (!serviceurls.isEmpty()) {
+                serviceurlsArray = serviceurls.toArray(new String[serviceurls.size()]);
             }
         }
-        String[] serviceurlsArray = serviceurls.toArray(new String[serviceurls.size()]);
+
 
         JettyServer.start(Integer.parseInt(port), null, null);
         //初始化rpc server 完成
@@ -112,6 +123,13 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
             }
         }
 
+
+        if (!discoveryEnable) {
+            return;
+        }
+        if (serviceurlsArray == null) {
+            throw new RuntimeException("请配置属性：serviceurls 。 设置服务注册中心地址");
+        }
 
         //初始化eureka-client
         EurekaInstanceConfigBean myDataCenterInstanceConfig = EurekaInstanceConfigBean.builder()
