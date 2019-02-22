@@ -45,7 +45,12 @@ public class HttpUtil {
 		Request request = new Request.Builder().url(url).post(body).build();
 		return execute(request);
 	}
-
+	public String callClient(String data, String url) throws IOException {
+		log.info("要访问的url是：{},post方式提交的json为：{}", url, data);
+		RequestBody body = RequestBody.create(MEDIA_TYPE_FORM, data);
+		Request request = new Request.Builder().url(url).post(body).build();
+		return execute(request);
+	}
 	public String postText(String data, String url) throws IOException {
 		log.info("要访问的url是：{},post方式提交的Text为：{}", url, data);
 		RequestBody body = RequestBody.create(MEDIA_TYPE_TEXT, data);

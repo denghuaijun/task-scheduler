@@ -75,10 +75,24 @@ public class TaskWarningService {
         return maps;
     }
 
+    /**
+     * 初始化查询所有告警信息下拉列表
+     * @return
+     */
     public List<TaskWarningManager> selectTaskWarnningList() {
         TaskWarningManagerExample example = new TaskWarningManagerExample();
         example.setOrderByClause("create_time desc");
         List<TaskWarningManager> taskWarningManagerList = taskWarningManagerMapper.selectByExample(example);
         return taskWarningManagerList;
+    }
+
+    /**
+     * 根据主键查询告警信息
+     * @param id
+     * @return
+     */
+    public TaskWarningManager findTaskWarning(long id) {
+
+        return taskWarningManagerMapper.selectByPrimaryKey(id);
     }
 }

@@ -1,22 +1,24 @@
 package com.ct.admin.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ct.admin.constants.DBConsts;
 import com.ct.admin.core.schedule.SchedulerHandler;
-import com.ct.admin.dao.entity.Task;
-import com.ct.admin.dao.entity.TaskExample;
-import com.ct.admin.dao.entity.TaskRunner;
+import com.ct.admin.dao.entity.*;
 import com.ct.admin.dao.mapper.TaskMapper;
 import com.ct.admin.model.TaskDTO;
 import com.ct.core.model.ReturnDTO;
+import com.ct.core.utils.HttpUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.*;
 
 @Slf4j
@@ -28,6 +30,9 @@ public class TaskService {
 
     @Resource
     private TaskrunnerService taskrunnerService;
+
+    @Value("${send.warning.project.url}")
+    private String sendUrl;
 
     /**
      * 查询任务器列表
@@ -287,5 +292,32 @@ public class TaskService {
             return tasks.get(0);
         }
         return null;
+    }
+
+    /**
+     * 调度任务出现异常给相关告警人员发送告警
+     * @param task
+     * @param taskLog
+     * @param taskWarning
+     */
+    public void sendWarningMessage(Task task,TaskLog taskLog, TaskWarningManager taskWarning){
+        try {
+            //组织请求数据
+            JSONObject requstObj = new JSONObject();
+            requstObj.put("tos",taskWarning == null ? "libin93":taskWarning.getTaskWarningCount());
+            requstObj.put("platform","分布式调度平台");
+            requstObj.put("content","执行调度任务服务器处理异常，异常任务名称【"+task.getTaskName()+"】，执行器ID：【"+taskLog.getFkTaskRunnerId()+"】-名称【"+taskLog.getRunnerAppname()+"】，烦请到平台查看！");
+            String result = new HttpUtil().callClient(requstObj.toJSONString(), sendUrl);
+            JSONObject jsonObject = JSONObject.parseObject(result);
+            String code = jsonObject.getString("code");
+            if ("200".equals(code)){
+                log.info("告警信息发送成功，已发送至告警组账号为：{}",taskWarning.getTaskWarningCount());
+            }else {
+                log.info("告警信息发送失败，返回code:{}",code);
+            }
+        } catch (IOException e) {
+            log.info("告警信息发送异常IOException：{}",e);
+            e.printStackTrace();
+        }
     }
 }

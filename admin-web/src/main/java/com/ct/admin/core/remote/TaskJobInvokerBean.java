@@ -5,7 +5,9 @@ import com.ct.admin.core.schedule.SchedulerFactory;
 import com.ct.admin.dao.entity.Task;
 import com.ct.admin.dao.entity.TaskLog;
 import com.ct.admin.dao.entity.TaskRunner;
+import com.ct.admin.dao.entity.TaskWarningManager;
 import com.ct.admin.service.TaskService;
+import com.ct.admin.service.TaskWarningService;
 import com.ct.admin.service.TaskrunnerService;
 import com.ct.core.client.RunnerInvokerDef;
 import com.ct.core.model.ReturnDTO;
@@ -25,8 +27,7 @@ import java.util.Date;
 @Slf4j
 public class TaskJobInvokerBean extends QuartzJobBean {
 
-    private static final String OA_ID = "libin93";
-    private static final String PLATNAME = "分布式调度平台";
+
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -37,17 +38,19 @@ public class TaskJobInvokerBean extends QuartzJobBean {
 
         TaskrunnerService taskrunnerService = SchedulerFactory.getTaskrunnerService();
         TaskService taskService = SchedulerFactory.getTaskService();
+        TaskWarningService taskWarningService = SchedulerFactory.getTaskWarningService();
 
         //获取Rpc地址数据封装RPC参数
         TaskRunner validTaskRunner = taskrunnerService.findValidTaskRunner(taskrunnerId);
         Task validTask = taskService.findValidTask(taskId, DBConsts.TaskConst.Status.正常, DBConsts.TaskConst.Status.暂停);
-
         if (validTask != null && validTaskRunner != null) {
             //保存返回日志
             TaskLog taskLog = new TaskLog();
             SchedulerFactory.getTaskLogService().insertTaskLog(taskLog);
-
-
+            TaskWarningManager taskWarning =null;
+            if (validTask.getFkTaskwarningId() !=null){
+                taskWarningService.findTaskWarning(validTask.getFkTaskwarningId());
+            }
             log.info("开始执行调度任务 taskid:{} , taskrunnerid:{} , ", jobKey.getGroup(), jobKey.getName());
             RpcTransport.RpcRequestTransport build = RpcTransport.RequestBuilder()
                     //设置调用地址
@@ -72,7 +75,9 @@ public class TaskJobInvokerBean extends QuartzJobBean {
             taskLog.setRunnerAppkey(validTaskRunner.getTaskRunnerAppkey());
             taskLog.setRunnerAddress(build.getClientAddress());
             SchedulerFactory.getTaskLogService().updateTaskLog(taskLog);
+            if (run.getCode() == 500){//服务器异常发送告警信息
+                taskService.sendWarningMessage(validTask,taskLog,taskWarning);
+            }
         }
-
     }
 }

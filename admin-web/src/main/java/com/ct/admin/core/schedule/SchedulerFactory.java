@@ -2,6 +2,7 @@ package com.ct.admin.core.schedule;
 
 import com.ct.admin.service.TaskLogService;
 import com.ct.admin.service.TaskService;
+import com.ct.admin.service.TaskWarningService;
 import com.ct.admin.service.TaskrunnerService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,9 @@ public class SchedulerFactory implements ApplicationContextAware {
     @Getter
     private static RestTemplate restTemplate;
 
+    @Getter
+    private static TaskWarningService taskWarningService;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SchedulerFactoryBean schedulerFactoryBean = applicationContext.getBean(SchedulerFactoryBean.class);
@@ -41,6 +45,7 @@ public class SchedulerFactory implements ApplicationContextAware {
         taskrunnerService = applicationContext.getBean(TaskrunnerService.class);
         scheduler = schedulerFactoryBean.getScheduler();
         taskLogService = applicationContext.getBean(TaskLogService.class);
+        taskWarningService = applicationContext.getBean(TaskWarningService.class);
         restTemplate = applicationContext.getBean(RestTemplate.class);
     }
 
