@@ -286,6 +286,28 @@ CREATE TABLE `task_warning_manager` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='调度任务关联告警管理表';
 
+
+
+DROP TABLE IF EXISTS `task_interface_log`;
+
+CREATE TABLE `task_interface_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `task_request_path` varchar(100) DEFAULT NULL COMMENT '请求路径',
+  `task_request_param` longtext COMMENT '请求入参',
+  `task_reponse_param` longtext COMMENT '返回参数',
+  `task_request_time` datetime DEFAULT NULL COMMENT '请求时间',
+  `task_reponse_time` datetime DEFAULT NULL COMMENT '响应时间',
+  `task_session_id` varchar(64) DEFAULT NULL COMMENT '接口session标识',
+  `task_client_ip` varchar(64) DEFAULT NULL COMMENT '客户端请求IP',
+  `task_request_method` varchar(64) DEFAULT NULL COMMENT '请求方式',
+  `task_request_type` varchar(64) DEFAULT NULL COMMENT '请求类型',
+  `task_reponse_code` varchar(20) DEFAULT NULL COMMENT '返回状态码',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `remark` varchar(64) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='调度任务接口日志表';
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
