@@ -1,5 +1,6 @@
 package com.ct.admin.controller;
 
+import com.ct.admin.handler.HasPermission;
 import com.ct.admin.model.MarkdownEntity;
 import com.ct.admin.utils.MarkDown2HtmlWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class TaskRunHelperController {
 
+    @HasPermission(value = true)
     @RequestMapping(value = "/taskrunhelper")
     public String index(Model model) {
         String file = "md/helper.md";

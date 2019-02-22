@@ -2,6 +2,7 @@ package com.ct.admin.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ct.admin.core.schedule.SchedulerHandler;
+import com.ct.admin.handler.HasPermission;
 import com.ct.admin.model.TaskDTO;
 import com.ct.admin.service.TaskService;
 import com.ct.admin.service.TaskWarningService;
@@ -35,6 +36,7 @@ public class TaskController {
      * @param jobGroup
      * @return
      */
+    @HasPermission(value = true)
     @RequestMapping(value = "/tasklist")
     public String index(Model model, @RequestParam(required = false, defaultValue = "-1") int jobGroup) {
         //查询全部有效的taskrunner
