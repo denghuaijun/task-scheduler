@@ -2,7 +2,8 @@
 SQLyog  v12.2.6 (64 bit)
 MySQL - 5.6.26 : Database - crontab_task
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -24,6 +25,7 @@ CREATE TABLE `task` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `task_name` varchar(200) DEFAULT NULL COMMENT '名称',
   `fk_taskrunner_id` bigint(20) DEFAULT NULL COMMENT '任务执行器ID',
+  `fk_taskwarning_id` bigint(20) DEFAULT NULL COMMENT '告警管理表ID',
   `task_cron` varchar(50) DEFAULT NULL COMMENT '调度配置',
   `creator_id` bigint(20) DEFAULT NULL COMMENT '创建用户',
   `create_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -273,6 +275,16 @@ CREATE TABLE `task_runner_registry` (
   `push_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `task_warning_manager`;
+
+CREATE TABLE `task_warning_manager` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `task_warning_count` varchar(64) DEFAULT NULL COMMENT '报警账号（oa账号）',
+  `task_warning_name` varchar(64) DEFAULT NULL COMMENT '报警方姓名',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='调度任务关联告警管理表';
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
