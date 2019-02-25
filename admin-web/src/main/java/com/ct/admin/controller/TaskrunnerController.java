@@ -1,5 +1,6 @@
 package com.ct.admin.controller;
 
+import com.ct.admin.handler.HasPermission;
 import com.ct.admin.model.TaskRunnerDTO;
 import com.ct.admin.service.TaskrunnerService;
 import com.ct.core.model.ReturnDTO;
@@ -28,6 +29,7 @@ public class TaskrunnerController {
      * @param model
      * @return
      */
+    @HasPermission(value = true)
     @RequestMapping(value = "/taskrunnerlist")
     public String index(Model model) {
 

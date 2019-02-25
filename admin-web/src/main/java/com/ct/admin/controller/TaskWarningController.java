@@ -1,5 +1,6 @@
 package com.ct.admin.controller;
 
+import com.ct.admin.handler.HasPermission;
 import com.ct.admin.model.TaskWarningDTO;
 import com.ct.admin.service.TaskWarningService;
 import com.ct.core.model.ReturnDTO;
@@ -28,6 +29,7 @@ public class TaskWarningController {
      * @param model
      * @return
      */
+    @HasPermission(value = true)
     @RequestMapping(value = "/taskwarninglist")
     public String index(Model model) {
 

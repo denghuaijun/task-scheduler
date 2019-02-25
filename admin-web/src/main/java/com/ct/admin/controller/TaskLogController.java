@@ -1,6 +1,7 @@
 package com.ct.admin.controller;
 
 
+import com.ct.admin.handler.HasPermission;
 import com.ct.admin.service.TaskLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class TaskLogController {
      * @param jobGroup
      * @return
      */
+    @HasPermission(value = true)
     @RequestMapping(value = "/taskloglist")
     public String index(Model model, @RequestParam(required = false, defaultValue = "-1") int jobGroup) {
         //查询全部有效的taskrunner
