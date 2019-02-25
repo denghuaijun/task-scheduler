@@ -140,6 +140,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>admin-web</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
