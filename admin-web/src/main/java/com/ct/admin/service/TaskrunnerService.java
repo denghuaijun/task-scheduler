@@ -32,7 +32,6 @@ public class TaskrunnerService {
     private EurekaClient eurekaClient;
 
 
-
     public TaskRunner findValidTaskRunner(long id) {
         TaskRunner taskRunner = taskRunnerMapper.selectByPrimaryKey(id);
         if (taskRunner != null && taskRunner.getActive().equals(new Short("1")) && taskRunner.getStatus().equals(1)) {
@@ -125,18 +124,20 @@ public class TaskrunnerService {
                 taskRunnerDTO.setCreateAt(n.getCreateAt());
                 taskRunnerDTO.setStatus(n.getStatus());
                 taskRunnerDTO.setTaskRunnerName(n.getTaskRunnerName());
-
                 if (StringUtils.isBlank(n.getTaskRunnerAddress())) {
                     Application application = eurekaClient.getApplication(n.getTaskRunnerAppkey());
-                    List<InstanceInfo> instances = application.getInstances();
-
-                    Set<String> services = new HashSet<>();
-                    for (InstanceInfo instance : instances) {
-                        String ipAddr = instance.getIPAddr();
-                        int port = instance.getPort();
-                        services.add(ipAddr + ":" + port);
+                    if (application != null) {
+                        List<InstanceInfo> instances = application.getInstances();
+                        Set<String> services = new HashSet<>();
+                        for (InstanceInfo instance : instances) {
+                            String ipAddr = instance.getIPAddr();
+                            int port = instance.getPort();
+                            services.add(ipAddr + ":" + port);
+                        }
+                        taskRunnerDTO.setTaskRunnerAddress("注册中心服务：" + Arrays.toString(services.toArray()));
+                    } else {
+                        taskRunnerDTO.setTaskRunnerAddress("没有找到服务");
                     }
-                    taskRunnerDTO.setTaskRunnerAddress("注册中心服务：" + Arrays.toString(services.toArray()));
                     taskRunnerDTO.setDiscoveryServices(1);
                 } else {
                     taskRunnerDTO.setTaskRunnerAddress(n.getTaskRunnerAddress());

@@ -306,7 +306,7 @@ public class TaskService {
             JSONObject requstObj = new JSONObject();
             requstObj.put("tos",taskWarning == null ? "libin93":taskWarning.getTaskWarningCount());
             requstObj.put("platform","分布式调度平台");
-            requstObj.put("content","执行调度任务服务器处理异常，异常任务名称【"+task.getTaskName()+"】，执行器ID：【"+taskLog.getFkTaskRunnerId()+"】-名称【"+taskLog.getRunnerAppname()+"】，烦请到平台查看！");
+            requstObj.put("content","执行调度任务服务器处理异常，异常任务名称【"+task.getTaskName()+"】，执行器ID：【"+taskLog.getFkTaskRunnerId()+"】-名称【"+taskLog.getRunnerAppname()+"】，请到平台查看！");
             String result = new HttpUtil().callClient(requstObj.toJSONString(), sendUrl);
             JSONObject jsonObject = JSONObject.parseObject(result);
             String code = jsonObject.getString("code");
@@ -317,7 +317,6 @@ public class TaskService {
             }
         } catch (IOException e) {
             log.info("告警信息发送异常IOException：{}",e);
-            e.printStackTrace();
         }
     }
 }
