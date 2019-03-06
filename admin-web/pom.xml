@@ -8,7 +8,7 @@
         <artifactId>task-scheduler</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>task</groupId>
+    <groupId>com.taikang</groupId>
     <artifactId>admin-web</artifactId>
     <version>1.0-SNAPSHOT</version>
 
