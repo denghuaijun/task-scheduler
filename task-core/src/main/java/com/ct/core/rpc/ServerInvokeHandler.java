@@ -56,7 +56,12 @@ public class ServerInvokeHandler extends AbstractHandler {
             BeanFactoryMapper.ServiceBean beanMapper = BeanFactoryMapper.getBeanMapper(mapKey);
             Object bean = beanMapper.getBean();
             Method method = beanMapper.getMethod();
-            ReflectionUtils.invokeMethod(method, bean);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ReflectionUtils.invokeMethod(method, bean);
+                }
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
