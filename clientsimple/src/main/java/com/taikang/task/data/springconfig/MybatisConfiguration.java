@@ -12,7 +12,7 @@ import java.util.Properties;
  */
 
 @Configuration
-@MapperScan( basePackages = {"com.taikang.task.data.dao.mapper"})
+@MapperScan( basePackages = {"com.taikang.task.data.dao.mapper","com.taikang.task.data.dao.extension.mapper"})
 public class MybatisConfiguration {
 
     @Bean
