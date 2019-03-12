@@ -72,6 +72,7 @@ public class PushContractDataService {
                     batchCount += hdQueryCallVendorMapper.countByCallCountDto(dto);
                     dto.setLastWeekTime(format.format(lastDate));
                     batchIncrementNum +=hdQueryCallVendorMapper.countByCallCountDto(dto);
+                    dto.setLastWeekTime(null);
                 }
                //组织推送的数据
                 jsonObject.put("code",contractCode);
