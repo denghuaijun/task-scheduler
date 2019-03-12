@@ -80,7 +80,7 @@ public class PushContractDataService {
                 jsonObject.put("countIncrement",(batchIncrementNum));
                 jsonObject.put("syncDate",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 log.info("合同厂商：{}推送数据开始，请求入参：{}",contractName,jsonObject.toString());
-                new HttpUtil().post(jsonObject.toString(),dataPropertiesUtil.getPushUrl());
+                 new HttpUtil().post(jsonObject.toString(), dataPropertiesUtil.getPushUrl());
             }
             log.info("PushContractDataService.pushData end!");
         }catch (Exception e){
