@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableAutoConfiguration
-@RunnerClients(appkey = "data", port = "8086",
+@RunnerClients(appkey = "data", port = "8087",
         basePackages = {"com.taikang.task.data.service.impl"},
         serviceurls = {"http://10.130.215.194:8761/eureka/"})
 @ComponentScan(basePackages = {"springconfig","com.taikang.task.data"})
