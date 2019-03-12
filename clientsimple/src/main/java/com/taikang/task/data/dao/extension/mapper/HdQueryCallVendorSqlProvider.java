@@ -20,6 +20,9 @@ public class HdQueryCallVendorSqlProvider {
         if (StringUtils.isNotEmpty(dto.getServiceCode())){
             sql.WHERE("hvs.`service_code`=#{serviceCode,jdbcType=VARCHAR}");
         }
+        if (StringUtils.isNotEmpty(dto.getFlagChange())){
+            sql.WHERE("hcv.`falg_change`=#{flagChange,jdbcType=VARCHAR}");
+        }
         if (StringUtils.isNotEmpty(dto.getCurrentTime())) {
             sql.WHERE("hcv.`created_time`<= #{currentTime,jdbcType=VARCHAR}");
         }

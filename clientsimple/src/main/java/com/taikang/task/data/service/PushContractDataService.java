@@ -1,7 +1,6 @@
 package com.taikang.task.data.service;
 
 import com.ct.core.utils.HttpUtil;
-import com.taikang.task.data.dao.entity.HdCallTenantExample;
 import com.taikang.task.data.dao.extension.entity.HdQueryCallCountDTO;
 import com.taikang.task.data.dao.extension.mapper.HdQueryCallVendorMapper;
 import com.taikang.task.data.dao.mapper.HdCallTenantMapper;
@@ -46,16 +45,16 @@ public class PushContractDataService {
             log.info("PushContractDataService.pushData start!");
             Date dateNow = new Date();
             //1、查询所有社保数据租户调用总数
-            HdCallTenantExample tenantExample = new HdCallTenantExample();
-            tenantExample.createCriteria().andServiceIdEqualTo(1L).andCreatedTimeLessThanOrEqualTo(new Date());
-            long callTotal = hdCallTenantMapper.countByExample(tenantExample);
-            log.info("查询出距当前时间:{},所有调用总数callTotal:{}",new Date(),callTotal);
+//            HdCallTenantExample tenantExample = new HdCallTenantExample();
+//            tenantExample.createCriteria().andServiceIdEqualTo(1L).andCreatedTimeLessThanOrEqualTo(new Date());
+//            long callTotal = hdCallTenantMapper.countByExample(tenantExample);
+//            log.info("查询出距当前时间:{},所有调用总数callTotal:{}",new Date(),callTotal);
             //获取租户调用表所有社保数据的总数，即为各供应商对应的调用总数
             Date lastDate = DateUtils.addDays(new Date(),-7);//上个周期时间
-            HdCallTenantExample tenantExample2 = new HdCallTenantExample();
-            tenantExample2.createCriteria().andServiceIdEqualTo(1L).andCreatedTimeBetween(lastDate,dateNow);
-            long incrementCount = hdCallTenantMapper.countByExample(tenantExample);
-            log.info("查询上周时间:{},incrementCount:{}",lastDate,incrementCount);
+//            HdCallTenantExample tenantExample2 = new HdCallTenantExample();
+//            tenantExample2.createCriteria().andServiceIdEqualTo(1L).andCreatedTimeBetween(lastDate,dateNow);
+//            long incrementCount = hdCallTenantMapper.countByExample(tenantExample2);
+//            log.info("查询上周时间:{},incrementCount:{}",lastDate,incrementCount);
              //查询批量插入数据量
             for (ContractCodeEnum contractCodeEnum : ContractCodeEnum.values()){
                 long batchCount=0;
@@ -64,7 +63,7 @@ public class PushContractDataService {
                 String contractCode = contractCodeEnum.getCode();
                 String contractName = ContractCodeEnum.getContractNameByCode(contractCode);
                 List<String> serviceCodeList = VendorServiceContractCodeEnum.getServiceCodeByContractCode(contractCode);
-                dto.setTenantId(dataPropertiesUtil.getBatchTenantId());
+                dto.setFlagChange(dataPropertiesUtil.getFlagChange());
                 dto.setServiceTypeId(dataPropertiesUtil.getBatchServiceId());
                 dto.setCurrentTime(format.format(dateNow));
                 for (String serviceCode : serviceCodeList){
@@ -77,8 +76,8 @@ public class PushContractDataService {
                //组织推送的数据
                 jsonObject.put("code",contractCode);
                 jsonObject.put("name",contractName);
-                jsonObject.put("countTotal",(batchCount+callTotal));
-                jsonObject.put("countIncrement",(incrementCount+batchIncrementNum));
+                jsonObject.put("countTotal",(batchCount));
+                jsonObject.put("countIncrement",(batchIncrementNum));
                 jsonObject.put("syncDate",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 log.info("合同厂商：{}推送数据开始，请求入参：{}",contractName,jsonObject.toString());
                 new HttpUtil().post(jsonObject.toString(),dataPropertiesUtil.getPushUrl());

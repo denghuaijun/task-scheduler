@@ -19,4 +19,6 @@ public class DataPropertiesUtil {
     private Long batchTenantId;
 
     private Long batchServiceId;
+
+    private String flagChange;
 }

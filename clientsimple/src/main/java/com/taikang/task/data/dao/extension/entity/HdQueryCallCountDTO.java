@@ -16,6 +16,8 @@ public class HdQueryCallCountDTO implements Serializable {
 
     private Long tenantId;
 
+    private String flagChange;
+
     private String currentTime;
 
     private String lastWeekTime;
