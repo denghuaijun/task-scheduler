@@ -68,7 +68,7 @@ public class SecurityInteceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        if (hasPermission(handler,response,request)){//如果在controller里面加了 @HasPermission(value = true)这个注解将不进行日志记录
-           return true;
+           return false;
        }
         //创建任务接口日志实体对象
         TaskInterfaceLogWithBLOBs logEntity = new TaskInterfaceLogWithBLOBs();
@@ -116,7 +116,7 @@ public class SecurityInteceptor implements HandlerInterceptor {
     public boolean hasPermission(Object handler, HttpServletResponse response, HttpServletRequest request)throws Exception{
         if (handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            //首先获取方法上的注解
+           /* //首先获取方法上的注解
             HasPermission hasPermission = handlerMethod.getMethod().getAnnotation(HasPermission.class);
             if (hasPermission == null){//如果方法上的注解为空在获取类上的注解
                 hasPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(HasPermission.class);
@@ -124,7 +124,7 @@ public class SecurityInteceptor implements HandlerInterceptor {
             //如果标记了注解则判断是否有权限
             if(hasPermission !=null && hasPermission.value()){
                 return true;
-            }
+            }*/
             //登录跳转
             if (!ifLogin(request)) {
                 PermessionLimit permission = handlerMethod.getMethodAnnotation(PermessionLimit.class);
