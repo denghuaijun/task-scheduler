@@ -13,4 +13,8 @@ public class TaskWarningDTO {
     private String taskWarningName;
 
     private Date createTime;
+
+    private Integer status;
+
+    private Integer active;
 }

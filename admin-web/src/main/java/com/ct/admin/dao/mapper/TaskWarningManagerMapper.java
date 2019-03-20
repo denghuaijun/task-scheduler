@@ -32,9 +32,11 @@ public interface TaskWarningManagerMapper {
 
     @Insert({
         "insert into task_warning_manager (task_warning_count, task_warning_name, ",
-        "create_time)",
+        "status, active, ",
+        "create_time, update_time)",
         "values (#{taskWarningCount,jdbcType=VARCHAR}, #{taskWarningName,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{active,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(TaskWarningManager record);
@@ -48,13 +50,16 @@ public interface TaskWarningManagerMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_warning_count", property="taskWarningCount", jdbcType=JdbcType.VARCHAR),
         @Result(column="task_warning_name", property="taskWarningName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="active", property="active", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<TaskWarningManager> selectByExample(TaskWarningManagerExample example);
 
     @Select({
         "select",
-        "id, task_warning_count, task_warning_name, create_time",
+        "id, task_warning_count, task_warning_name, status, active, create_time, update_time",
         "from task_warning_manager",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -62,7 +67,10 @@ public interface TaskWarningManagerMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_warning_count", property="taskWarningCount", jdbcType=JdbcType.VARCHAR),
         @Result(column="task_warning_name", property="taskWarningName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="active", property="active", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     TaskWarningManager selectByPrimaryKey(Long id);
 
@@ -79,7 +87,10 @@ public interface TaskWarningManagerMapper {
         "update task_warning_manager",
         "set task_warning_count = #{taskWarningCount,jdbcType=VARCHAR},",
           "task_warning_name = #{taskWarningName,jdbcType=VARCHAR},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP}",
+          "status = #{status,jdbcType=INTEGER},",
+          "active = #{active,jdbcType=INTEGER},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(TaskWarningManager record);

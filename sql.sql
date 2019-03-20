@@ -282,6 +282,8 @@ CREATE TABLE `task_warning_manager` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `task_warning_count` varchar(64) DEFAULT NULL COMMENT '报警账号（oa账号）',
   `task_warning_name` varchar(64) DEFAULT NULL COMMENT '报警方姓名',
+  `status` int(11) DEFAULT NULL COMMENT '告警账号状态 0：无效，1：有效',
+  `active` int(11) DEFAULT '1' COMMENT '1：激活，0：删除',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='调度任务关联告警管理表';

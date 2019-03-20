@@ -159,6 +159,7 @@
                                     <#list taskwarningList as taskwarning>
                                         <option value="${taskwarning.id}"  >${taskwarning.taskWarningCount}</option>
                                     </#list>
+                                </select>
                             </div>
                         </div>
 

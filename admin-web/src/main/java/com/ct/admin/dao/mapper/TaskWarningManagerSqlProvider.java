@@ -36,8 +36,20 @@ public class TaskWarningManagerSqlProvider {
             sql.VALUES("task_warning_name", "#{taskWarningName,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getActive() != null) {
+            sql.VALUES("active", "#{active,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -52,7 +64,10 @@ public class TaskWarningManagerSqlProvider {
         }
         sql.SELECT("task_warning_count");
         sql.SELECT("task_warning_name");
+        sql.SELECT("status");
+        sql.SELECT("active");
         sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.FROM("task_warning_manager");
         applyWhere(sql, example, false);
         
@@ -82,8 +97,20 @@ public class TaskWarningManagerSqlProvider {
             sql.SET("task_warning_name = #{record.taskWarningName,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getActive() != null) {
+            sql.SET("active = #{record.active,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -97,7 +124,10 @@ public class TaskWarningManagerSqlProvider {
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("task_warning_count = #{record.taskWarningCount,jdbcType=VARCHAR}");
         sql.SET("task_warning_name = #{record.taskWarningName,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("active = #{record.active,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
         TaskWarningManagerExample example = (TaskWarningManagerExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -116,8 +146,20 @@ public class TaskWarningManagerSqlProvider {
             sql.SET("task_warning_name = #{taskWarningName,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getActive() != null) {
+            sql.SET("active = #{active,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
