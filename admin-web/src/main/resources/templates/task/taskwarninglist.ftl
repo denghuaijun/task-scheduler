@@ -74,7 +74,7 @@
 
 <!-- 新增.模态框 -->
 <div class="modal fade" id="addTaskwarningModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" >添加告警账户</h4>
@@ -82,11 +82,11 @@
             <div class="modal-body">
                 <form class="form-horizontal form" role="form" >
                 <div class="form-group">
-                        <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
+                        <label for="taskWarningCount" class="col-sm-2 control-label">告警OA账号<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
                     <label for="taskWarningStatus" class="col-sm-2 control-label">账号状态<font color="red">*</font></label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="status" >
+                        <select class="form-control" name="status" maxlength="10">
                             <option value="1">有效</option>
                             <option value="0">无效</option>
                         </select>
@@ -108,7 +108,7 @@
 
 <!-- 更新.模态框 -->
 <div class="modal fade" id="updateTaskwarningModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" >编辑告警信息</h4>
@@ -116,11 +116,11 @@
             <div class="modal-body">
                 <form class="form-horizontal form" role="form" >
                     <div class="form-group">
-                        <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
+                        <label for="taskWarningCount" class="col-sm-2 control-label">告警OA账号<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
                         <label for="taskWarningStatus" class="col-sm-2 control-label">账号状态<font color="red">*</font></label>
                         <div class="col-sm-4">
-                            <select class="form-control" name="status" >
+                            <select class="form-control" name="status" maxlength="10">
                                 <option value="1">有效</option>
                                 <option value="0">无效</option>
                             </select>
