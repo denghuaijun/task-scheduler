@@ -4,9 +4,6 @@ import com.ct.admin.annotation.PermessionLimit;
 import com.ct.admin.handler.HasPermission;
 import com.ct.admin.handler.SecurityInteceptor;
 import com.ct.admin.model.LoginUserDTO;
-import com.ct.admin.service.TaskService;
-import com.ct.admin.service.TaskWarningService;
-import com.ct.admin.service.TaskrunnerService;
 import com.ct.core.model.ReturnDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,15 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class LoginController {
-
-    @Resource
-    private TaskService taskService;
-
-    @Resource
-    private TaskrunnerService taskrunerService;
-
-    @Resource
-    private TaskWarningService taskWarningService;
 
     @RequestMapping("/toLogin")
     @HasPermission(value = true)
