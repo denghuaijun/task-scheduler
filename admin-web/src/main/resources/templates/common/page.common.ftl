@@ -1,3 +1,27 @@
+<#macro commonStyle>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/adminlte/AdminLTE.min.css?version=2.4">
+    <link rel="stylesheet" href="/static/css/adminlte/_all-skins.min.css?version=2.4">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <link rel="stylesheet" href="/static/css/PACE/themes/blue/pace-theme-flash.css">
+
+</#macro>
+
+<#macro commonScript>
+    <script src="/static/js/common.1.js"></script>
+</#macro>
+
+
 <#macro commonHeader>
 <header class="main-header">
 
