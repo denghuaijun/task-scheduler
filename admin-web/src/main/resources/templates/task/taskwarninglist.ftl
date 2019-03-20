@@ -53,6 +53,8 @@
                                     <th name="id" >id</th>
                                     <th name="taskWarningCount" >OA账号</th>
                                     <th name="createTime" >创建时间</th>
+                                    <th name="status">账号状态</th>
+                                    <th name="操作" >操作</th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -81,7 +83,14 @@
                 <form class="form-horizontal form" role="form" >
                 <div class="form-group">
                         <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
-                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
+                    <label for="taskWarningStatus" class="col-sm-2 control-label">账号状态<font color="red">*</font></label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="status" >
+                            <option value="1">有效</option>
+                            <option value="0">无效</option>
+                        </select>
+                    </div>
                     </div>
 
                     <hr>
@@ -108,7 +117,14 @@
                 <form class="form-horizontal form" role="form" >
                     <div class="form-group">
                         <label for="taskWarningCount" class="col-sm-3 control-label">告警OA账号<font color="red">*</font></label>
-                        <div class="col-sm-9"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="taskWarningCount" placeholder="请输入OA账号" maxlength="32" ></div>
+                        <label for="taskWarningStatus" class="col-sm-2 control-label">账号状态<font color="red">*</font></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="status" >
+                                <option value="1">有效</option>
+                                <option value="0">无效</option>
+                            </select>
+                        </div>
                     </div>
 
                     <hr>

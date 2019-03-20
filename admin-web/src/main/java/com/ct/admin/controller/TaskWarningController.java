@@ -44,6 +44,22 @@ public class TaskWarningController {
         return taskWarningService.taskwarningAdd(taskWarningDTO);
     }
   /**
+   * 修改告警器用户信息
+   */
+  @RequestMapping("/taskwarning/modify")
+  @ResponseBody
+  public ReturnDTO<String> taskWarningModify(TaskWarningDTO taskWarningDTO) {
+    return taskWarningService.taskWarningModify(taskWarningDTO);
+  }
+  /**
+   * 删除告警器用户信息
+   */
+  @RequestMapping("/taskwarning/delete")
+  @ResponseBody
+  public ReturnDTO<String> deleteTaskWarning(Long id) {
+    return taskWarningService.deleteTaskWarning(id);
+  }
+  /**
    * 分页
    * @param start
    * @param length

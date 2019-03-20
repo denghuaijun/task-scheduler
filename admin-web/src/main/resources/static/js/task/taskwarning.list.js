@@ -34,6 +34,33 @@ $(function () {
                 "render": function ( data, type, row ) {
                     return data?moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss"):"";
                 }
+            },
+            {
+                "data": 'status',
+                "visible" : true,
+                "render": function ( data, type, row ) {
+                    if ("1"== data){
+                        return "有效";
+                    } else{
+                        return "无效";
+                    }
+                }
+            },
+            {
+                "data": '操作' ,
+                "render": function ( data, type, row ) {
+
+                    return function(){
+                        tableData['key'+row.id] = row;
+                        // 操作按钮
+                        var html = '<p id="'+ row.id +'" >'+
+                            '<button class="btn btn-warning btn-xs update"  _type="modify" type="button">编辑</button>  '+
+                            '<button class="btn btn-danger btn-xs taskWarning_operate"  _type="delete" type="button">删除</button>  '+
+                            '</p>';
+
+                        return html;
+                    };
+                }
             }
         ],
         "language" : {
@@ -63,47 +90,40 @@ $(function () {
     });
 
 
-/*    // update
-    $("#task_list").on('click', '.update',function() {
+    // update
+    $("#taskwarning_list").on('click', '.update',function() {
         var id = $(this).parent('p').attr("id");
         var row = tableData['key'+id];
 
         // base data
-        $("#updateModal .form input[name='taskId']").val( row.taskId );
-        $('#updateModal .form select[name=taskRunnerId] option[value='+ row.taskRunnerId +']').prop('selected', true);
-        $("#updateModal .form input[name='taskName']").val( row.taskName );
-        $("#updateModal .form input[name='taskCron']").val( row.taskCron );
+        $("#updateTaskwarningModal .form input[name='id']").val( row.id );
+        $('#updateTaskwarningModal .form select[name=status] option[value='+ row.status +']').prop('selected', true);
+        $("#updateTaskwarningModal .form input[name='taskWarningCount']").val( row.taskWarningCount );
         // show
-        $('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');
+        $('#updateTaskwarningModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
 
-    var updateModalValidate = $("#updateModal .form").validate({
+    var updateModalValidate = $("#updateTaskwarningModal .form").validate({
         errorElement : 'span',
         errorClass : 'help-block',
         focusInvalid : true,
 
         rules : {
-            taskName : {
+            taskWarningCount : {
                 required : true,
                 maxlength: 50
             },
-            taskCron : {
+            status : {
                 required : true,
                 maxlength: 20
-            },
-            taskRunnerId : {
-                required : true
             }
         },
         messages : {
-            taskName : {
-                required :"请输入任务的名称"
+            taskWarningCount : {
+                required :"请输入告警账号"
             },
-            taskCron : {
-                required :"请输入表达式“Cron”."
-            },
-            taskRunnerId : {
-                required :"taskRunnerId不能为空"
+            status : {
+                required :"请选择告警账号状态"
             }
         },
         highlight : function(element) {
@@ -117,12 +137,12 @@ $(function () {
             element.parent('div').append(error);
         },
         submitHandler : function(form) {
-            $.post("/task/modify",  $("#updateModal .form").serialize(), function(data, status) {
+            $.post("/taskwarning/modify",  $("#updateTaskwarningModal .form").serialize(), function(data, status) {
                 if (data.code == "200") {
-                    $('#updateModal').modal('hide');
+                    $('#updateTaskwarningModal').modal('hide');
                     layer.open({
                         title: '系统提示',
-                        content: '编辑任务成功',
+                        content: '编辑告警信息成功',
                         icon: '1',
                         end: function(layer, index){
                             taskTable.fnDraw();
@@ -131,15 +151,68 @@ $(function () {
                 } else {
                     layer.open({
                         title: '系统提示',
-                        content: (data.msg || "编辑任务失败"),
+                        content: (data.msg || "编辑告警信息失败"),
                         icon: '2'
                     });
                 }
             });
         }
 
-    });*/
+    });
 
+    //操作事件
+    $("#taskwarning_list").on('click', '.taskWarning_operate',function() {
+        var typeName;
+        var url;
+        var needFresh = false;
+
+        var type = $(this).attr("_type");
+        if ("delete" == type) {
+            typeName = "删除";
+            url = "/taskwarning/delete";
+            needFresh = true;
+        } else if ("modify" == type) {
+            typeName = "编辑";
+            url = "/taskwarning/modify";
+            needFresh = true;
+        } else {
+            return;
+        }
+
+        var id = $(this).parent('p').attr("id");
+
+        layer.confirm('确认' + typeName + '?', {icon: 3, title:'系统提示'}, function(index){
+            layer.close(index);
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : {
+                    "id" : id
+                },
+                dataType : "json",
+                success : function(data){
+                    if (data.code == 200) {
+                        layer.open({
+                            title: '系统提示',
+                            content: typeName + "成功",
+                            icon: '1',
+                            end: function(layer, index){
+                                if (needFresh) {
+                                    taskTable.fnDraw();
+                                }
+                            }
+                        });
+                    } else {
+                        layer.open({
+                            title: '系统提示',
+                            content: (data.msg || typeName + "失败"),
+                            icon: '2'
+                        });
+                    }
+                },
+            });
+        });
+    });
 
 
 
@@ -156,11 +229,18 @@ $(function () {
             taskWarningCount : {
                 required : true,
                 maxlength: 50
+            },
+            status : {
+                required : true,
+                maxlength : 20
             }
         },
         messages : {
             taskWarningCount : {
                 required :"请输入OA账号"
+            },
+            status : {
+                required : "请选择告警账号状态"
             }
         },
         highlight : function(element) {

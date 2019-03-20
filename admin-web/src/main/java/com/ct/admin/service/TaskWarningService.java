@@ -34,6 +34,7 @@ public class TaskWarningService {
         try{
             BeanConvertUtils.copyProperties(taskWarningDTO,taskWarningManager);
             taskWarningManager.setCreateTime(new Date());
+            taskWarningManager.setActive(1);
             int i = taskWarningManagerMapper.insertSelective(taskWarningManager);
             if (i>0){
                 return ReturnDTO.SUCCESS();
@@ -55,6 +56,7 @@ public class TaskWarningService {
     public Map<String, Object> pageList(int start,int length) {
 
         TaskWarningManagerExample example = new TaskWarningManagerExample();
+        example.createCriteria().andActiveEqualTo(1);//查询没有被删除的数据
         example.setOrderByClause(" create_time desc");
         Page<Object> objects = PageHelper.offsetPage(start, length);
 
@@ -76,11 +78,12 @@ public class TaskWarningService {
     }
 
     /**
-     * 初始化查询所有告警信息下拉列表
+     * 初始化查询所有告警信息下拉列表，查询有效的且未删除的告警账号
      * @return
      */
     public List<TaskWarningManager> selectTaskWarnningList() {
         TaskWarningManagerExample example = new TaskWarningManagerExample();
+        example.createCriteria().andStatusEqualTo(1).andActiveEqualTo(1);
         example.setOrderByClause("create_time desc");
         List<TaskWarningManager> taskWarningManagerList = taskWarningManagerMapper.selectByExample(example);
         return taskWarningManagerList;
@@ -95,4 +98,50 @@ public class TaskWarningService {
 
         return taskWarningManagerMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 修改告警组信息
+     * @param taskWarningDTO
+     * @return
+     */
+    @Transactional
+    public ReturnDTO<String> taskWarningModify(TaskWarningDTO taskWarningDTO) {
+        TaskWarningManager taskWarningManager = new TaskWarningManager();
+        try{
+            BeanConvertUtils.copyProperties(taskWarningDTO,taskWarningManager);
+            taskWarningManager.setUpdateTime(new Date());
+            int i = taskWarningManagerMapper.updateByPrimaryKeySelective(taskWarningManager);
+            if (i>0){
+                return ReturnDTO.SUCCESS();
+            }
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new ReturnDTO(ReturnDTO.RETURN_FAIL_CODE, "修改告警用户失败:" + e.getMessage());
+        }
+        return ReturnDTO.FAIL();
+    }
+
+    /**
+     * 删除告警信息
+     * @param id
+     * @return
+     */
+    @Transactional
+    public ReturnDTO<String> deleteTaskWarning(Long id) {
+        //删除告警信息
+            try {
+                TaskWarningManager taskWarningManager = taskWarningManagerMapper.selectByPrimaryKey(id);
+                taskWarningManager.setActive(0);
+                int i = taskWarningManagerMapper.updateByPrimaryKeySelective(taskWarningManager);
+                if (i>0){
+                    return ReturnDTO.SUCCESS();
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                TransactionAspectSupport.currentTransactionStatus().isRollbackOnly();
+                return new ReturnDTO(ReturnDTO.RETURN_FAIL_CODE, "删除告警信息失败:" + e.getMessage());
+            }
+            return ReturnDTO.SUCCESS();
+        }
 }
