@@ -33,7 +33,6 @@ public class LoginController {
 
     @RequestMapping("/task/login")
     @PermessionLimit(limit=false)
-    @HasPermission(value = true)
     @ResponseBody
     public ReturnDTO<String> Login(Model model, HttpServletRequest request, HttpServletResponse response, LoginUserDTO loginUserDTO) {
         if (SecurityInteceptor.ifLogin(request)) {
@@ -54,7 +53,6 @@ public class LoginController {
     @RequestMapping(value="logout", method= RequestMethod.POST)
     @ResponseBody
     @PermessionLimit(limit=false)
-    @HasPermission(value = true)
     public ReturnDTO<String> logout(HttpServletRequest request, HttpServletResponse response){
         if (SecurityInteceptor.ifLogin(request)) {
             SecurityInteceptor.logout(request, response);
