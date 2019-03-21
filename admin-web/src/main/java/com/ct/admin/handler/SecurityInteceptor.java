@@ -67,9 +67,18 @@ public class SecurityInteceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-       if (hasPermission(handler,response,request)){//如果在controller里面加了 @HasPermission(value = true)这个注解将不进行日志记录
-           return false;
-       }
+        if (handler instanceof HandlerMethod){
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            //登录跳转
+            if (!ifLogin(request)) {
+                PermessionLimit permission = handlerMethod.getMethodAnnotation(PermessionLimit.class);
+                if (permission == null || permission.limit()) {
+                    response.sendRedirect(request.getContextPath() + "/toLogin");
+                    return false;
+                }
+            }
+        }
+        log.info("请求路径："+request.getRequestURI());
         //创建任务接口日志实体对象
         TaskInterfaceLogWithBLOBs logEntity = new TaskInterfaceLogWithBLOBs();
         //初始化set请求数据

@@ -174,6 +174,7 @@
 <script src="/static/js/adminlte.min.js"></script>
 <script src="/static/js/jquery.dataTables.min.js"></script>
 <script src="/static/js/dataTables.bootstrap.min.js"></script>
+<script src="/static/js/common.1.js"></script>
 
 <script src="/static/js/task/tasklog.list.js"></script>
 <script src="/static/js/moment.js"></script>

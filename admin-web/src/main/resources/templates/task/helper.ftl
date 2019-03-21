@@ -25,6 +25,19 @@
             ${html}
         </section>
     </div>
+</div>
+
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="/static/js/jquery.validate.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/adminlte.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/dataTables.bootstrap.min.js"></script>
+<script src="/static/js/common.1.js"></script>
+
+<script src="/static/js/moment.js"></script>
+<script src="/static/plugin/layer/layer.js"></script>
+
 </body>
 
 </html>
