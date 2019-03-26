@@ -9,7 +9,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a><b>分布式调度框架<br>task-schedule</br></b></a>
+			<a><b>分布式调度框架<br>task-scheduler</br></b></a>
 		</div>
 		<form id="loginForm" method="post" >
 			<div class="login-box-body">
