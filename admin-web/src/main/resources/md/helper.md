@@ -19,9 +19,9 @@
 
 #### 三、访问地址
 
- &emsp;&emsp;分布式调度系统可视化界面生产地址：<http://healthcareadmin.tk.cn/tasklist>
+ &emsp;&emsp;分布式调度系统可视化界面生产地址：<http://healthcareadmin.tk.cn/>
  
- &emsp;&emsp;分布式调度系统可视化界面测试地址：<http://10.130.215.190:8086/tasklist>
+ &emsp;&emsp;分布式调度系统可视化界面测试地址：<http://10.130.215.190:8086>
 
 #### 四、分布式调度系统后端使用说明
 
