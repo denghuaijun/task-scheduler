@@ -11,18 +11,21 @@ import org.springframework.core.env.Environment;
 
 import java.util.Map;
 
-
+/**
+ * 启动一个eureka client
+ */
 @Slf4j
 public class EurekaClientServiceBase {
-
+    /**
+     * ApplicationInfoManager 初始化 EurekaServer
+     */
     private static ApplicationInfoManager applicationInfoManager = null;
     private static EurekaClient eurekaClient = null;
     private static Environment environment = null;
 
     public static void instance(ApplicationInfoManager applicationInfoManager,
-                              EurekaClient eurekaClient,
-                                   Environment environment) {
-
+                              EurekaClient eurekaClient, Environment environment) {
+        //
         if (EurekaClientServiceBase.applicationInfoManager == null && EurekaClientServiceBase.eurekaClient == null && EurekaClientServiceBase.environment == null) {
             EurekaClientServiceBase.applicationInfoManager = applicationInfoManager;
             EurekaClientServiceBase.eurekaClient = eurekaClient;
@@ -31,7 +34,7 @@ public class EurekaClientServiceBase {
     }
 
     public void stop() {
-        log.info("start shutdown server.");
+        log.info("repare shutdown server.");
         if (eurekaClient != null) {
             log.info("Shutting down server.");
             eurekaClient.shutdown();

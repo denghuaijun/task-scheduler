@@ -2,7 +2,7 @@
 
 #### 一、项目介绍
 
-&emsp;&emsp;本项目作为互联网开发不大健康团队独立搭建的分布式调度项目，项目工程名为（**task_scheduler**），此项目旨在将调度系统独立于业务系统，可以独立维护，不影响正常业务流程及功能。  
+  
 
 #### 二、软件架构  
 
@@ -19,9 +19,7 @@
 
 #### 三、访问地址
 
- &emsp;&emsp;分布式调度系统可视化界面生产地址：<http://healthcareadmin.tk.cn/>
- 
- &emsp;&emsp;分布式调度系统可视化界面测试地址：<http://10.130.215.190:8086>
+ &emsp;&emsp;分布式调度系统可视化界面测试地址：<http://localhost:9090>
 
 #### 四、分布式调度系统后端使用说明
 
@@ -48,9 +46,6 @@
 
 1. 分布式调度系统
 2. 参考markdown官网<http://markdownpad.com>
-3. 系统由泰康在线互联网开发部进行维护
-4. 项目路径 <http://gitlab.it.taikang.com/zx_basearchitecture/task_scheduler.git>
-
 
 #### 六、码云特技
 

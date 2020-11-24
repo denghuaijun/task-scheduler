@@ -35,7 +35,6 @@ public class TaskJobInvokerBean extends QuartzJobBean {
         Long taskId = Long.parseLong(jobKey.getGroup());
         Long taskrunnerId = Long.parseLong(jobKey.getName());
 
-
         TaskrunnerService taskrunnerService = SchedulerFactory.getTaskrunnerService();
         TaskService taskService = SchedulerFactory.getTaskService();
         TaskWarningService taskWarningService = SchedulerFactory.getTaskWarningService();

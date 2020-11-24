@@ -50,12 +50,12 @@ public class ServerInvokeHandler extends AbstractHandler {
             }
             //解析request
             RpcTransport.RpcRequestTransport r = (RpcTransport.RpcRequestTransport)HessianSerializer.deserialize(requestBytes, RpcTransport.RpcRequestTransport.class);
-
             //返回扫描结果
             String mapKey = BeanFactoryMapper.createAppKey(r.getAppKey(), r.getAppName(), r.getMethodName());
             BeanFactoryMapper.ServiceBean beanMapper = BeanFactoryMapper.getBeanMapper(mapKey);
             Object bean = beanMapper.getBean();
             Method method = beanMapper.getMethod();
+            method.getParameterTypes();
             new Thread(new Runnable() {
                 @Override
                 public void run() {

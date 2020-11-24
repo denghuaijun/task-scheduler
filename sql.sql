@@ -13,9 +13,9 @@ MySQL - 5.6.26 : Database - crontab_task
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`crontab_task` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`task_scheduler` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `crontab_task`;
+USE `task_scheduler`;
 
 /*Table structure for table `task` */
 
@@ -285,6 +285,7 @@ CREATE TABLE `task_warning_manager` (
   `status` int(11) DEFAULT NULL COMMENT '告警账号状态 0：无效，1：有效',
   `active` int(11) DEFAULT '1' COMMENT '1：激活，0：删除',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='调度任务关联告警管理表';
 

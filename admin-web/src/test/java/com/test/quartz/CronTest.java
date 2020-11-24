@@ -1,6 +1,6 @@
 package com.test.quartz;
 
-import com.ct.admin.BootStrap;
+import com.ct.admin.AdminWebApplication;
 import com.ct.admin.model.TaskDTO;
 import com.ct.admin.service.TaskService;
 import com.ct.admin.service.TaskrunnerService;
@@ -17,7 +17,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BootStrap.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = AdminWebApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringBootApplication
 @Slf4j
 public class CronTest {

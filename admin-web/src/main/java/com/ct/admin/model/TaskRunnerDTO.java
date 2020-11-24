@@ -2,8 +2,6 @@ package com.ct.admin.model;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * taskrunner注解
  */
@@ -29,7 +27,7 @@ public class TaskRunnerDTO {
 
     private Long creatorId;
 
-    private Date createAt;
+    private String createAt;
 
     private Integer active;
 }

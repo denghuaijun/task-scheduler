@@ -127,7 +127,10 @@ public class EurekaInstanceConfigBean extends MyDataCenterInstanceConfig impleme
              return null;
          }
 
-
+         /**
+          * 关键代码 注册eureka实例信息
+          * @return
+          */
         public EurekaInstanceConfigBean builder() {
             EurekaInstanceConfigBean eurekaInstanceConfigBean = new EurekaInstanceConfigBean();
             eurekaInstanceConfigBean.setAppname(appname);

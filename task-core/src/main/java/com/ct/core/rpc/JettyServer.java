@@ -8,6 +8,9 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.util.thread.ExecutorThreadPool;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @ Author     ：libin
  * @ Date       ：Created in 19:09 2018/9/13
@@ -22,12 +25,12 @@ public class JettyServer {
     private static Thread thread;
 
     public static void start(final int port, final String ip, final String appName) {
+        // 开启线程 初始换Jetty容器,注册handler,
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 // The Server
                 server = new Server(new ExecutorThreadPool());
-
                 // HTTP connector
                 ServerConnector connector = new ServerConnector(server);
                 if (ip!=null && ip.trim().length()>0) {
@@ -40,7 +43,6 @@ public class JettyServer {
                 HandlerCollection handlerc =new HandlerCollection();
                 handlerc.setHandlers(new Handler[]{new ServerInvokeHandler()});
                 server.setHandler(handlerc);
-
                 try {
                     // Start server
                     server.start();
@@ -74,6 +76,10 @@ public class JettyServer {
         }
 
         log.info("server destroy success, server:{}", JettyServer.class.getName());
+    }
+
+    public static void main(String[] args) {
+        Map map = new HashMap<>();
     }
 
 }

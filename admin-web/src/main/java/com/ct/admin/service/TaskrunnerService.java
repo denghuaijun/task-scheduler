@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -121,7 +122,7 @@ public class TaskrunnerService {
             tasks.forEach(n -> {
                 TaskRunnerDTO taskRunnerDTO = new TaskRunnerDTO();
                 taskRunnerDTO.setId(n.getId());
-                taskRunnerDTO.setCreateAt(n.getCreateAt());
+                taskRunnerDTO.setCreateAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(n.getCreateAt()));
                 taskRunnerDTO.setStatus(n.getStatus());
                 taskRunnerDTO.setTaskRunnerName(n.getTaskRunnerName());
                 if (StringUtils.isBlank(n.getTaskRunnerAddress())) {
@@ -134,7 +135,7 @@ public class TaskrunnerService {
                             int port = instance.getPort();
                             services.add(ipAddr + ":" + port);
                         }
-                        taskRunnerDTO.setTaskRunnerAddress("注册中心服务：" + Arrays.toString(services.toArray()));
+                        taskRunnerDTO.setTaskRunnerAddress("任务执行地址：" + Arrays.toString(services.toArray()));
                     } else {
                         taskRunnerDTO.setTaskRunnerAddress("没有找到服务");
                     }

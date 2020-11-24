@@ -38,7 +38,7 @@ $(function () {
                 "data": 'createAt',
                 "visible" : true,
                 "render": function ( data, type, row ) {
-                    return data?moment(new Date(data)).format("YYYY-MM-DD HH:mm:ss"):"";
+                    return data;
                 }
             },
             {

@@ -18,15 +18,15 @@ import java.lang.annotation.*;
 @Import(RunnerRegistrar.class)
 public @interface RunnerClients {
 
-    String appkey();
+    String appkey(); // 执行器名称
 
-    String port();
+    String port(); // 端口号
 
     String[] value() default {};
 
-    String[] serviceurls() default {};
+    String[] serviceurls() default {}; // 注册到哪些注册中心
 
-    String[] basePackages() default {};
+    String[] basePackages() default {};// 扫描哪些包
 
-    boolean discoveryEnable() default true;
+    boolean discoveryEnable() default true;// 是否可以被发现
 }

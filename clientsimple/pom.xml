@@ -92,7 +92,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.taikang.task.data.TaskClientApplication</mainClass>
+                    <mainClass>wang.niceu.task.simple.TaskClientApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

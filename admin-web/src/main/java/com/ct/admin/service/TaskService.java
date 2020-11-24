@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -53,7 +54,8 @@ public class TaskService {
         if (!tasks.isEmpty()) {
             tasks.forEach(n -> {
                 TaskDTO taskDTO = new TaskDTO();
-                taskDTO.setCreateAt(n.getCreateAt());
+
+                taskDTO.setCreateAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(n.getCreateAt()));
                 taskDTO.setTaskId(n.getFkTaskrunnerId());
                 taskDTO.setStatus(n.getStatus());
                 taskDTO.setTaskCron(n.getTaskCron());
@@ -303,10 +305,6 @@ public class TaskService {
         try {
             //组织请求数据
             HashMap map = new HashMap();
-//            JSONObject requstObj = new JSONObject();
-//            requstObj.put("tos",taskWarning == null ? "libin93":taskWarning.getTaskWarningCount());
-//            requstObj.put("platform","分布式调度平台");
-//            requstObj.put("content","执行调度任务服务器处理异常，异常任务名称【"+task.getTaskName()+"】，执行器ID：【"+taskLog.getFkTaskRunnerId()+"】-名称【"+taskLog.getRunnerAppname()+"】，请到平台查看！");
             map.put("tos",taskWarning == null ? "libin93":taskWarning.getTaskWarningCount());
             map.put("platform","分布式调度平台");
             map.put("content","执行调度任务服务器处理异常，异常任务名称【"+task.getTaskName()+"】，执行器ID：【"+taskLog.getFkTaskRunnerId()+"】-名称【"+taskLog.getRunnerAppname()+"】，请到平台查看！");

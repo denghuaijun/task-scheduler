@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration  debug="true" scan="true">
+<configuration debug="true" scan="true">
 
     <springProperty scope="context" name="serverPort" source="server.port"/>
     <!--<springProperty scope="context" name="logPath" source="log.path"/>-->
@@ -11,8 +11,7 @@
         </encoder>
     </appender>
 
-    <substitutionProperty name="log.base"
-                          value="/tmp/logs"/>
+    <substitutionProperty name="log.base" value="/tmp/logs"/>
 
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.base}/stdout_${serverPort}.log</file>
@@ -31,47 +30,46 @@
 
     <!--生产环境:打印控制台和输出到文件-->
 
-        <logger name="com" level="INFO"/>
-        <logger name="com.ct.admin" level="INFO"/>
-        <logger name="ch.qos.logback" level="INFO"/>
-        <logger name="org.springframework" level="INFO"/>
-        <logger name="org.mybatis" level="INFO"/>
-        <logger name="org" level="INFO"/>
-        <root level="INFO">
-            <appender-ref ref="stdout"/>
-            <appender-ref ref="rollingFile"/>
-        </root>
+    <logger name="com" level="INFO"/>
+    <logger name="com.ct.admin" level="INFO"/>
+    <logger name="ch.qos.logback" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mybatis" level="INFO"/>
+    <logger name="org" level="INFO"/>
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rollingFile"/>
+    </root>
 
 
     <!--开发环境:打印控制台-->
 
-        <!--<logger name="com" level="INFO"/>-->
-        <!--<logger name="com.ct.admin" level="DEBUG"/>-->
-        <!--<logger name="ch.qos.logback" level="DEBUG"/>-->
-        <!--<logger name="org.springframework" level="INFO"/>-->
-        <!--&lt;!&ndash;<logger name="org.mybatis" level="DEBUG"/>&ndash;&gt;-->
-        <!--<logger name="org" level="INFO"/>-->
-        <!--<root>-->
-            <!--<level value="DEBUG"/>-->
-            <!--<appender-ref ref="stdout"/>-->
-        <!--</root>-->
+    <!--<logger name="com" level="INFO"/>-->
+    <!--<logger name="com.ct.admin" level="DEBUG"/>-->
+    <!--<logger name="ch.qos.logback" level="DEBUG"/>-->
+    <!--<logger name="org.springframework" level="INFO"/>-->
+    <!--&lt;!&ndash;<logger name="org.mybatis" level="DEBUG"/>&ndash;&gt;-->
+    <!--<logger name="org" level="INFO"/>-->
+    <!--<root>-->
+    <!--<level value="DEBUG"/>-->
+    <!--<appender-ref ref="stdout"/>-->
+    <!--</root>-->
 
 
     <!--&lt;!&ndash;测试环境:打印控制台&ndash;&gt;-->
 
-        <!--&lt;!&ndash; 打印sql &ndash;&gt;-->
-        <!--<logger name="com" level="INFO"/>-->
-        <!--<logger name="com.ct.admin" level="INFO"/>-->
-        <!--<logger name="ch.qos.logback" level="INFO"/>-->
-        <!--<logger name="org.springframework" level="INFO"/>-->
-     <!--&lt;!&ndash;   <logger name="org.mybatis" level="INFO"/>&ndash;&gt;-->
-        <!--<logger name="org" level="INFO"/>-->
-        <!--<root>-->
-            <!--<level value="INFO"/>-->
-            <!--<appender-ref ref="rollingFile"/>-->
-            <!--<appender-ref ref="stdout"/>-->
-        <!--</root>-->
-
+    <!--&lt;!&ndash; 打印sql &ndash;&gt;-->
+    <!--<logger name="com" level="INFO"/>-->
+    <!--<logger name="com.ct.admin" level="INFO"/>-->
+    <!--<logger name="ch.qos.logback" level="INFO"/>-->
+    <!--<logger name="org.springframework" level="INFO"/>-->
+    <!--&lt;!&ndash;   <logger name="org.mybatis" level="INFO"/>&ndash;&gt;-->
+    <!--<logger name="org" level="INFO"/>-->
+    <!--<root>-->
+    <!--<level value="INFO"/>-->
+    <!--<appender-ref ref="rollingFile"/>-->
+    <!--<appender-ref ref="stdout"/>-->
+    <!--</root>-->
 
 
 </configuration>

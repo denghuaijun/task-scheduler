@@ -39,7 +39,7 @@ import java.util.Set;
  * @ Author     ：libin
  * @ Date       ：Created in 19:09 2018/9/13
  * @ Description：执行器初始化服务
- * @ Modified By：
+ * @ Modified By：wangjian
  * @Version: $version$
  */
 @Slf4j
@@ -57,13 +57,12 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
         //初始化rpc server
+        // 解析RunnerClients注解
         Map<String, Object> attrs = importingClassMetadata.getAnnotationAttributes(RunnerClients.class.getName());
         String port = (String) attrs.get("port");
         String appkey = (String) attrs.get("appkey");
         boolean discoveryEnable = (boolean) attrs.get("discoveryEnable");
         String[] discoveryServiceurls = (String[]) attrs.get("serviceurls");
-
-
         String[] serviceurlsArray = null;
 
         if (discoveryServiceurls != null && discoveryServiceurls.length > 0) {
@@ -77,8 +76,7 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
                 serviceurlsArray = serviceurls.toArray(new String[serviceurls.size()]);
             }
         }
-
-
+        // 启动Jetty服务器 注册ServerInvokeHandler
         JettyServer.start(Integer.parseInt(port), null, null);
         //初始化rpc server 完成
         //初始化 runner
@@ -91,27 +89,23 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
         Set<String> basePackages = getBasePackages(importingClassMetadata);
         //遍历包
         for (String basePackage : basePackages) {
-            Set<BeanDefinition> candidateComponents = scanner
-                    .findCandidateComponents(basePackage);
+            Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(basePackage);
             for (BeanDefinition candidateComponent : candidateComponents) {
                 if (candidateComponent instanceof AnnotatedBeanDefinition) {
                     //验证是否为接口
                     AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                     AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
-
                     Assert.isTrue(annotationMetadata.isConcrete(), "@Runner can only be specified on an class");
-
+                    // 获取扫描到的@Runner注解
                     Map<String, Object> attributes = annotationMetadata
                             .getAnnotationAttributes(Runner.class.getCanonicalName());
                     String className = annotationMetadata.getClassName();
                     String beanclass = beanDefinition.getBeanClassName();
 
                     String[] interfaceNames = annotationMetadata.getInterfaceNames();
-
+                    // 判断是否实现RunnerInvokerDef
                     Assert.isTrue(Arrays.asList(interfaceNames).contains(RunnerInvokerDef.class.getName()), "@Runner class must implement interface RunnerInvokerDef ");
-
                     String appName = (String) attributes.get("appname");
-
                     //注册到spring
                     BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RunnerBeanDefinition.class);
                     AbstractBeanDefinition rawBeanDefinition = beanDefinitionBuilder.getRawBeanDefinition();
@@ -138,7 +132,6 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
                 .preferIpAddress(true)
                 .builder();
 
-
         ApplicationInfoManager applicationInfoManager = EurekaClientServiceBase.initializeApplicationInfoManager(myDataCenterInstanceConfig);
 
         EurekaClientConfigBean eurekaClientConfigBean = EurekaClientConfigBean.builder()
@@ -146,7 +139,6 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
                 .build();
         //启动eureka 服务
         EurekaClient eurekaClient = EurekaClientServiceBase.initializeEurekaClient(applicationInfoManager,eurekaClientConfigBean);
-
         EurekaClientServiceBase.instance(applicationInfoManager, eurekaClient, environment);
 
     }
@@ -186,18 +178,16 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
         return basePackages;
     }
 
-
+    // 初始化扫描器
     protected ClassPathScanningCandidateComponentProvider getScanner() {
         return new ClassPathScanningCandidateComponentProvider(false, this.environment) {
 
             @Override
             protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
                 if (beanDefinition.getMetadata().isIndependent()) {
-                    if (beanDefinition.getMetadata().isInterface()
-                            && beanDefinition.getMetadata()
-                            .getInterfaceNames().length == 1
-                            && Annotation.class.getName().equals(beanDefinition
-                            .getMetadata().getInterfaceNames()[0])) {
+                    if (beanDefinition.getMetadata().isInterface() &&
+                            beanDefinition.getMetadata().getInterfaceNames().length == 1 &&
+                            Annotation.class.getName().equals(beanDefinition.getMetadata().getInterfaceNames()[0])) {
                         try {
                             Class<?> target = ClassUtils.forName(
                                     beanDefinition.getMetadata().getClassName(),
@@ -212,7 +202,6 @@ public class RunnerRegistrar implements ImportBeanDefinitionRegistrar, Environme
                     return true;
                 }
                 return false;
-
             }
         };
     }
